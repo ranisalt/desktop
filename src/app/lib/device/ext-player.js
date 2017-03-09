@@ -215,13 +215,13 @@
             fs: '--action window/enter-fs'
         },
         'PotPlayerMini': {
-            type: 'DAUM\\PotPlayer',
+            type: 'DAUM-PotPlayer',
             switches: '',
             subswitch: '',
             fs: ''
         },
         'PotPlayerMini64': {
-            type: 'DAUM\\PotPlayer',
+            type: 'DAUM-PotPlayer',
             switches: '',
             subswitch: '',
             fs: ''
