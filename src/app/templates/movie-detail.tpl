@@ -96,3 +96,12 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
 
     </div>
 </section>
+
+<% 
+        ga('send', {
+            'hitType': 'pageview',
+            'page': '/popcorntimece/movie/detail/'+title,
+            'title': title
+        });
+
+ %>
