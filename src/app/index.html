@@ -171,16 +171,11 @@
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
         window.ga_debug = {
             trace: true
-        };
+        }
         ga('create', Settings.gaCode, {
             //'cookieDomain': 'none'
         });
-        ga('set', 'checkProtocolTask', function() { /* nothing */ });
-        ga('send', {
-            'hitType': 'pageview',
-            'page': '/popcorntimece/',
-            'title': 'Main Window'
-        });
+        ga('set', 'checkProtocolTask', function() { /* nothing */ })
     </script>
     <script>
         window.setInterval(function() {

@@ -167,6 +167,7 @@
             // Show loading modal on startup
             var that = this;
             this.Content.show(new App.View.InitModal());
+
             App.db.initialize()
                 .then(function() {
 
@@ -201,6 +202,16 @@
                     // we check if the register is accepted
                     if (AdvSettings.get('rememberRegister')) { // || !AdvSettings.get('registerTorrents')
                         that.showRegister();
+                    }
+
+                    //Initialize Google Analytics
+                    if (App.settings.analytics) {
+                        ga('send', {
+                            'hitType': 'pageview',
+                            'page': '/popcorntimece/',
+                            'title': 'Main Window'
+                        });
+                        win.debug("Analytics:Main Window");
                     }
 
                     that.InitModal.destroy();
@@ -254,22 +265,29 @@
             this.Settings.destroy();
             this.MovieDetail.destroy();
 
-            ga('send', {
-                'hitType': 'pageview',
-                'page': '/popcorntimece/movie/',
-                'title': 'Movie List'
-            });
+            if (App.settings.analytics) {
+                ga('send', {
+                    'hitType': 'pageview',
+                    'page': '/popcorntimece/movie/',
+                    'title': 'Movie List'
+                });
+                win.debug("Analytics:Movie List");
+            }
             this.Content.show(new App.View.MovieBrowser());
         },
 
         showShows: function(e) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
-            ga('send', {
-                'hitType': 'pageview',
-                'page': '/popcorntimece/show/',
-                'title': 'TV Show List'
-            });
+
+            if (App.settings.analytics) {
+                ga('send', {
+                    'hitType': 'pageview',
+                    'page': '/popcorntimece/show/',
+                    'title': 'TV Show List'
+                });
+                win.debug("Analytics:TVShow List");
+            }
             this.Content.show(new App.View.ShowBrowser());
         },
 
