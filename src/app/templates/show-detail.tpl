@@ -133,3 +133,11 @@
         </div><!--End tabs_base-->
     </div><!--End season-episode-container-->
 </div>
+<% 
+        ga('send', {
+            'hitType': 'pageview',
+            'page': '/popcorntimece/show/detail/'+title,
+            'title': title
+        });
+
+ %>
