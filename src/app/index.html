@@ -172,14 +172,14 @@
         window.ga_debug = {
             trace: true
         };
-        ga('create', 'UA-72854850-1', {
-            'cookieDomain': 'none'
+        ga('create', Settings.gaCode, {
+            //'cookieDomain': 'none'
         });
         ga('set', 'checkProtocolTask', function() { /* nothing */ });
         ga('send', {
             'hitType': 'pageview',
             'page': '/popcorntimece/',
-            'title': 'main'
+            'title': 'Main Window'
         });
     </script>
     <script>
