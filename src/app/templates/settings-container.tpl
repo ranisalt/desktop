@@ -1,9 +1,12 @@
 <div class="settings-container">
     <div class="fa fa-times close-icon"></div>
-    <div class="success_alert" style="display:none"><%= i18n.__("Saved") %>&nbsp;<span id="checkmark-notify"><div id="stem-notify"></div><div id="kick-notify"></div></span></div>
+    <div class="success_alert" style="display:none">
+        <%= i18n.__("Saved") %>&nbsp;<span id="checkmark-notify"><div id="stem-notify"></div><div id="kick-notify"></div></span></div>
 
     <section id="title">
-        <div class="title"><%= i18n.__("Settings") %></div>
+        <div class="title">
+            <%= i18n.__("Settings") %>
+        </div>
         <div class="content">
             <span>
                 <i class="fa fa-keyboard-o keyboard tooltipped" data-toggle="tooltip" data-placement="bottom" title="<%= i18n.__("Keyboard Shortcuts") %>"></i>
@@ -15,7 +18,9 @@
     </section>
 
     <section id="user-interface">
-        <div class="title"><%= i18n.__("User Interface") %></div>
+        <div class="title">
+            <%= i18n.__("User Interface") %>
+        </div>
         <div class="content">
             <span>
                 <div class="dropdown subtitles-language">
@@ -116,7 +121,9 @@
     </section>
 
     <section id="subtitles">
-        <div class="title"><%= i18n.__("Subtitles") %></div>
+        <div class="title">
+            <%= i18n.__("Subtitles") %>
+        </div>
         <div class="content">
             <span>
                 <div class="dropdown subtitles-language-default">
@@ -276,9 +283,11 @@
         </div>
     </section>-->
     <section id="playback">
-        <div class="title"><%= i18n.__("Playback") %></div>
+        <div class="title">
+            <%= i18n.__("Playback") %>
+        </div>
         <div class="content">
-		<span title='Just click any magnet or .torrent link from your browser to start Popcorn Time'>
+            <span title='Just click any magnet or .torrent link from your browser to start Popcorn Time'>
                 <div class="dropdown buffering-size">
                     <p><%= i18n.__("Stream from Browser") %></p>
                     <%
@@ -293,7 +302,7 @@
                     <div class="dropdown-arrow"></div>
                 </div>
             </span>
-			<span>
+            <span>
                 <input class="settings-checkbox" name="activateAutoplay" id="activateAutoplay" type="checkbox" <%=(Settings.activateAutoplay? "checked='checked'":"")%>>
                 <label class="settings-label" for="activateAutoplay" title="Autoplay enables streaming with just one click (must be disabled if you'd like to choose a different player like VLC, Chromecast or HTML5) Autoplay Mode automatically plays the largest video file. However you can disable autoplay to be able to manually choose the file you want to stream and get the file list with its size, etc.">Autoplay Mode in Torrent Collection</label>
             </span>
@@ -428,9 +437,11 @@
     </section>-->
 
     <section id="connection">
-        <div class="title"><%= i18n.__("Connection") %></div>
+        <div class="title">
+            <%= i18n.__("Connection") %>
+        </div>
         <div class="content">
-			<span>
+            <span>
                 <p><%= i18n.__("Movie API Endpoint") %></p>
                     <input id="ytsAPI" type="text" size="50" name="ytsAPI" value="<%=Settings.ytsAPI[0].url%>">
                     <% if (Settings.ytsAPI.length <= 1) { %>
@@ -470,7 +481,9 @@
     </section>
 
     <section id="cache">
-        <div class="title"><%= i18n.__("Download") %></div>
+        <div class="title">
+            <%= i18n.__("Download") %>
+        </div>
         <div class="content">
             <span>
                 <p><%= i18n.__("Cache Directory") %></p>
@@ -486,7 +499,9 @@
     </section>
 
     <section id="database" class="advanced">
-        <div class="title"><%= i18n.__("Database") %></div>
+        <div class="title">
+            <%= i18n.__("Database") %>
+        </div>
         <div class="content">
             <span>
                 <p><%= i18n.__("Database Directory") %></p>
@@ -507,7 +522,9 @@
         </div>
     </section>
     <section id="miscellaneous">
-        <div class="title"><%= i18n.__("Miscellaneous") %></div>
+        <div class="title">
+            <%= i18n.__("Miscellaneous") %>
+        </div>
         <div class="content">
             <span class="advanced">
                 <div class="dropdown tv_detail_jump_to">
@@ -543,13 +560,25 @@
                 <input class="settings-checkbox" name="bigPicture" id="bigPicture" type="checkbox" <%=(Settings.bigPicture? "checked='checked'":"")%>>
                 <label class="settings-label" for="bigPicture"><%= i18n.__("Big Picture Mode") %></label>
             </span>
+            <span>
+                <input class="settings-checkbox" name="analytics" id="analytics" type="checkbox" <%=(Settings.analytics? "checked='checked'":"")%>>
+                <label class="settings-label" for="analytics"><%= i18n.__("Activate Google Analytics") %></label>
+            </span>
         </div>
     </section>
     <div class="btns">
-        <div class="btn-settings flush-bookmarks advanced"><%= i18n.__("Flush bookmarks database") %></div>
-        <div class="btn-settings flush-subtitles advanced"><%= i18n.__("Flush subtitles cache") %></div>
-        <div class="btn-settings flush-databases"><%= i18n.__("Flush all databases") %></div>
-        <div class="btn-settings default-settings"><%= i18n.__("Reset to Default Settings") %></div>
+        <div class="btn-settings flush-bookmarks advanced">
+            <%= i18n.__("Flush bookmarks database") %>
+        </div>
+        <div class="btn-settings flush-subtitles advanced">
+            <%= i18n.__("Flush subtitles cache") %>
+        </div>
+        <div class="btn-settings flush-databases">
+            <%= i18n.__("Flush all databases") %>
+        </div>
+        <div class="btn-settings default-settings">
+            <%= i18n.__("Reset to Default Settings") %>
+        </div>
     </div>
 
 </div>

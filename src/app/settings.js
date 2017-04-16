@@ -158,6 +158,7 @@ Settings.rememberRegister = true;
 
 //GA Code
 Settings.gaCode = 'UA-72854850-1';
+Settings.analytics = true;
 
 
 var ScreenResolution = {
