@@ -519,5 +519,11 @@
 	" Health false ": " Health false ",
 	" Magnet link ": " Magnet link ",
 	" Disabled ": " Disabled ",
-	" Health Unknown ": " Health Unknown "
+	" Health Unknown ": " Health Unknown ",
+	"default torrent application": "default torrent application",
+	"Yes": "Yes",
+	" Fantasy": " Fantasy",
+	" Musical": " Musical",
+	" Romance": " Romance",
+	" Horror": " Horror"
 }
