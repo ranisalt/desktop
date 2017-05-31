@@ -66,7 +66,7 @@ Settings.traktPlayback = true;
 Settings.tvstAccessToken = '';
 
 // Advanced options
-Settings.connectionLimit = 100;
+Settings.connectionLimit = 200;
 Settings.dhtLimit = 500;
 Settings.streamPort = 0; // 0 = Random
 Settings.tmpLocation = path.join(os.tmpDir(), 'Popcorn-Time');
@@ -142,6 +142,21 @@ Settings.updateEndpoint = {
         //fingerprint: '30:A6:BA:6C:19:A4:D5:C3:5A:E8:F1:56:C6:B4:E1:DC:EF:DD:EC:8C',
     }]
 };
+
+Settings.trackersList = ['https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_udp.txt'];
+
+Settings.trackers = [
+    'udp://glotorrents.pw:6969/announce',
+    'udp://tracker.coppersurfer.tk:6969',
+    'udp://tracker.leechers-paradise.org:6969',
+    'udp://tracker.internetwarriors.net:1337',
+    'udp://tracker.openbittorrent.com:80',
+    'udp://p4p.arenabg.ch:1337',
+    'udp://open.demonii.com:1337/announce',
+    'udp://tracker.opentrackr.org:1337/announce',
+    'udp://torrent.gresille.org:80/announce',
+    'udp://public.popcorn-tracker.org:6969/announce'
+];
 
 // App Settings
 Settings.version = false;
