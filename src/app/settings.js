@@ -147,11 +147,11 @@ Settings.trackersList = ['https://raw.githubusercontent.com/ngosang/trackerslist
 
 Settings.trackers = [
     'udp://glotorrents.pw:6969/announce',
-    'udp://tracker.coppersurfer.tk:6969',
-    'udp://tracker.leechers-paradise.org:6969',
-    'udp://tracker.internetwarriors.net:1337',
-    'udp://tracker.openbittorrent.com:80',
-    'udp://p4p.arenabg.ch:1337',
+    'udp://tracker.coppersurfer.tk:6969/announce',
+    'udp://tracker.leechers-paradise.org:6969/announce',
+    'udp://tracker.internetwarriors.net:1337/announce',
+    'udp://tracker.openbittorrent.com:80/announce',
+    'udp://p4p.arenabg.ch:1337/announce',
     'udp://open.demonii.com:1337/announce',
     'udp://tracker.opentrackr.org:1337/announce',
     'udp://torrent.gresille.org:80/announce',
