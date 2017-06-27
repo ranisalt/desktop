@@ -40,7 +40,7 @@
         "jschardet": "1.4.2",
         "json-rpc2": "^1.0.2",
         "kat-api-ce": "^0.0.4",
-        "rarbg-api": "git+https://github.com/talas9/rarbg-api.git",
+        "rarbg-api": "git+https://github.com/talas9/rarbg-api",
         "markdown": "~0.5.0",
         "memoizee": "^0.4.4",
         "mkdirp": "^0.5.1",
@@ -77,6 +77,7 @@
         "eslint": "^3.19.0",
         "eslint-config-google": "^0.8.0",
         "gulp": "^3.9.1",
+        "gulp-zip": "~4.0.0",
         "nw-builder": "^3.2.3",
         "nw-gyp": "^3.4.0",
         "yargs": "^7.0.2"
