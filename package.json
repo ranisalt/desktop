@@ -70,6 +70,8 @@
   },
   "devDependencies": {
     "del": "^2.2.0",
+    "eslint": "^3.19.0",
+    "eslint-config-google": "^0.8.0",
     "gulp": "^3.9.0",
     "nw-builder": "^3.2.3",
     "nw-gyp": "^3.4.0",

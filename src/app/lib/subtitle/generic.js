@@ -1,4 +1,4 @@
-(function (App) {
+(function(App) {
     'use strict';
 
     var request = require('request');
@@ -14,7 +14,7 @@
 
     var self;
 
-    var findSrt = function (input) {
+    var findSrt = function(input) {
         var files = fs.readdirSync(input);
         for (var f in files) {
             var stats = fs.lstatSync(path.join(input, files[f]));
@@ -30,8 +30,8 @@
         }
     };
 
-    var downloadZip = function (data) {
-        return Q.Promise(function (resolve, reject) {
+    var downloadZip = function(data) {
+        return Q.Promise(function(resolve, reject) {
             var filePath = data.path;
             var subUrl = data.url;
 
@@ -51,17 +51,17 @@
                 uri: subUrl
             });
 
-            req.on('error', function (e) {
+            req.on('error', function(e) {
                 win.error('Error downloading subtitle: ' + e);
                 reject(e);
             });
-            req.on('end', function () {
-                out.end(function () {
+            req.on('end', function() {
+                out.end(function() {
                     try {
                         var zip = new AdmZip(zipPath),
                             zipEntries = zip.getEntries();
                         zip.extractAllTo( /*target path*/ unzipPath, /*overwrite*/ true);
-                        fs.unlink(zipPath, function (err) {});
+                        fs.unlink(zipPath, function(err) {});
                         win.debug('Subtitles extracted to : ' + newName);
                         var found = findSrt(unzipPath);
                         fs.renameSync(found, newName);
@@ -76,8 +76,83 @@
         });
     };
 
-    var downloadSRT = function (data, callback) {
-        return Q.Promise(function (resolve, reject) {
+    //Download URL from Butter Project
+
+    var downloadFromUrl = function(data) {
+        return new Promise(function(resolve, reject) {
+            var vpath = data.path; // video file path
+            var vext = path.extname(vpath); // video extension
+            var vname = path.basename(vpath).substring(0, path.basename(vpath).lastIndexOf(vext)); // video file name
+            var folder = path.dirname(vpath); // cwd
+            var furl = data.url; // subtitle url
+            var fpath = path.join(folder, vname); // subtitle local path, no extension
+
+            request.get(furl).on('response', function(response) {
+                var rtype = (response.headers['content-type'] || '').split(';')[0].trim(); // response type
+                var cdisp = (response.headers['content-disposition'] || ''); // content disposition
+                var fgz, fzip, fsrt;
+                var ext;
+
+                if (rtype.match('gz') || cdisp.match('gz')) {
+                    // gzipped file
+                    ext = '.gz';
+                    fgz = true;
+                } else if (rtype.match('zip') || cdisp.match('zip')) {
+                    // zipped file
+                    ext = '.zip';
+                    fzip = true;
+                } else if (rtype.match('srt') || cdisp.match('srt')) {
+                    // srt subtitle
+                    ext = '.srt';
+                    fsrt = true;
+                } else {
+                    reject(new Error('Subtitle: response error, file is not gz,zip,srt'));
+                }
+
+                var fileStream = fs.createWriteStream(fpath + ext).on('finish', function() {
+                    if (fsrt) {
+                        resolve(fpath + ext);
+                    } else if (fzip) {
+                        try {
+                            var zip = new AdmZip(fpath),
+                                zipEntries = zip.getEntries();
+                            zip.extractAllTo( /*target path*/ fpath, /*overwrite*/ true);
+                            fs.unlink(fpath + ext, function(err) {});
+                            console.debug('Subtitles extracted to : ' + fpath);
+                            var found = findSrt(fpath);
+                            if (found) {
+                                fs.renameSync(found, fpath + '.srt');
+                                resolve(fpath + '.srt');
+                            } else {
+                                throw 'no SRT file in the downloaded archive';
+                            }
+                        } catch (e) {
+                            reject(e);
+                        }
+                    } else if (fgz) {
+                        require('zlib').unzip(fs.readFileSync(fpath + ext), (error, buffer) => {
+                            if (error) {
+                                reject(error);
+                            } else {
+                                var charset = charsetDetect.detect(buffer);
+                                var denc = charset.encoding;
+                                var subtitle_content = buffer.toString(denc);
+                                fs.writeFileSync(fpath + '.srt', subtitle_content, { encoding: denc });
+                                resolve(fpath + '.srt');
+                            }
+                        });
+                    }
+                });
+                this.pipe(fileStream);
+
+            }).on('error', function(error) {
+                reject(error);
+            });
+        });
+    };
+
+    var downloadSRT = function(data, callback) {
+        return Q.Promise(function(resolve, reject) {
             var filePath = data.path;
             var subUrl = data.url;
             var fileExt = path.extname(filePath);
@@ -88,8 +163,8 @@
                 uri: subUrl
             });
 
-            req.on('end', function () {
-                out.end(function () {
+            req.on('end', function() {
+                out.end(function() {
                     win.debug('Subtitles downloaded to : ' + srtPath);
                     resolve(srtPath);
                 });
@@ -103,19 +178,19 @@
             id: 'generic',
             name: 'Generic'
         },
-        initialize: function () {
+        initialize: function() {
             App.vent.on('subtitle:download', this.download);
             App.vent.on('subtitle:convert', this.convert);
             self = this;
         },
-        get: function (data) {
+        get: function(data) {
             win.error('Not implemented in parent model');
         },
-        download: function (data) {
+        download: function(data) {
             if (data.path && data.url) {
                 win.debug('Subtitles download url:', data.url);
-				console.log('save subtitles to AdvSettings '+data.url);
-				AdvSettings.set('LastSubtitle', data.url);
+                console.log('save subtitles to AdvSettings ' + data.url);
+                AdvSettings.set('LastSubtitle', data.url);
                 var fileFolder = path.dirname(data.path);
 
                 // Fix cases of OpenSubtitles appending data after file extension.
@@ -132,43 +207,62 @@
                 if (subExt === 'zip') {
 
                     downloadZip(data)
-                        .then(function (location) {
+                        .then(function(location) {
                             App.vent.trigger('subtitle:downloaded', location);
                         })
-                        .catch(function (error) {
+                        .catch(function(error) {
+                            App.vent.trigger('subtitle:downloaded', null);
+                        });
+
+                } else if (subExt === 'gz') {
+
+                    downloadFromUrl(data)
+                        .then(function(location) {
+                            App.vent.trigger('subtitle:downloaded', location);
+                        })
+                        .catch(function(error) {
                             App.vent.trigger('subtitle:downloaded', null);
                         });
 
                 } else if (subExt === 'srt') {
 
                     downloadSRT(data)
-                        .then(function (location) {
+                        .then(function(location) {
                             App.vent.trigger('subtitle:downloaded', location);
                         })
-                        .catch(function (error) {
+                        .catch(function(error) {
                             App.vent.trigger('subtitle:downloaded', null);
                         });
                 } else {
-                    win.error('Subtitle Error, unknown file format: ' + data.url);
-                    App.vent.trigger('subtitle:downloaded', null);
+                    downloadFromUrl(data)
+                        .then(function(location) {
+                            App.vent.trigger('subtitle:downloaded', location);
+                        })
+                        .catch(function(error) {
+                            win.error('Subtitle Error, unknown file format: ' + data.url);
+                            App.vent.trigger('subtitle:downloaded', null);
+                        });
+
+                    //win.error('Subtitle Error, unknown file format: ' + data.url);
+                    //App.vent.trigger('subtitle:downloaded', null);
                 }
             } else {
                 win.info('No subtitles downloaded. None picked or language not available');
                 App.vent.trigger('subtitle:downloaded', null);
             }
         },
-        convert: function (data, cb) { // Converts .srt's to .vtt's
+        convert: function(data, cb) { // Converts .srt's to .vtt's
             try {
                 var srtPath = data.path;
                 var vttPath = srtPath.replace('.srt', '.vtt');
                 var srtData = fs.readFileSync(srtPath);
-                self.decode(srtData, data.language, function (srtDecodedData) {
-                    captions.srt.parse(srtDecodedData, function (err, vttData) {
+                self.decode(srtData, data.language, function(srtDecodedData) {
+                    captions.srt.parse(srtDecodedData, function(err, vttData) {
                         if (err) {
                             return cb(err, null);
                         }
                         // Save vtt as UTF-8 encoded, so that foreign subs will be shown correctly on ext. devices.
-                        fs.writeFile(vttPath, captions.vtt.generate(captions.srt.toJSON(vttData)), 'utf8', function (err) {
+                        fs.writeFile(vttPath, captions.vtt.generate(captions.srt.toJSON(vttData)), 'utf8', function(err) {
                             if (err) {
                                 return cb(err, null);
                             } else {
@@ -187,7 +281,7 @@
             }
         },
         // Handles charset encoding
-        decode: function (dataBuff, language, callback) {
+        decode: function(dataBuff, language, callback) {
             var targetEncodingCharset = 'utf8';
 
             var charset = charsetDetect.detect(dataBuff);
