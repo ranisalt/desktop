@@ -1,4 +1,4 @@
-(function (App) {
+(function(App) {
     'use strict';
 
     var STREAM_PORT = 21584; // 'PT'!
@@ -12,7 +12,7 @@
     var engine = null;
     var preload_engine = null;
     var statsUpdater = null;
-    var active = function (wire) {
+    var active = function(wire) {
         return !wire.peerChoking;
     };
     var subtitles = null;
@@ -21,7 +21,7 @@
     var subtitleDownloading = false;
 
 
-    var watchState = function (stateModel) {
+    var watchState = function(stateModel) {
 
 
         if (engine != null) {
@@ -53,6 +53,10 @@
 
             if (stateModel.get('streamInfo').get('torrent').defaultSubtitle && stateModel.get('streamInfo').get('torrent').defaultSubtitle !== 'none' && hasSubtitles && subtitles != null && engine.files[0] && !downloadedSubtitles && !subtitleDownloading) {
                 subtitleDownloading = true;
+                engine.files = _.sortBy(engine.files, function(fl) {
+                    return fl.length;
+                });
+                engine.files.reverse();
                 App.vent.trigger('subtitle:download', {
                     url: subtitles[stateModel.get('streamInfo').get('torrent').defaultSubtitle],
                     path: path.join(engine.path, engine.files[0].path)
@@ -66,7 +70,7 @@
         }
     };
 
-    var handleTorrent = function (torrent, stateModel) {
+    var handleTorrent = function(torrent, stateModel) {
 
         var tmpFilename = torrent.info.infoHash;
         tmpFilename = tmpFilename.replace(/([^a-zA-Z0-9-_])/g, '_'); // +'-'+ (new Date()*1);
@@ -98,7 +102,7 @@
 
         engine.swarm.piecesGot = 0;
         engine.swarm.cachedDownload = 0;
-        engine.on('verify', function (index) {
+        engine.on('verify', function(index) {
             engine.swarm.piecesGot += 1;
         });
 
@@ -118,7 +122,7 @@
         stateModel.set('state', 'connecting');
         watchState(stateModel);
 
-        var checkReady = function () {
+        var checkReady = function() {
             if (stateModel.get('state') === 'ready') {
                 if (stateModel.get('state') === 'ready' && stateModel.get('streamInfo').get('player') && stateModel.get('streamInfo').get('player').id !== 'local') {
                     stateModel.set('state', 'playingExternally');
@@ -131,20 +135,20 @@
                 // clear downloaded so change:downloaded gets triggered for the first time
                 streamInfo.set('downloaded', 0);
 
-if(AdvSettings.get('chosenPlayer') != 'html5'){
-                App.vent.trigger('stream:ready', streamInfo);
-                stateModel.destroy();
-}
+                if (AdvSettings.get('chosenPlayer') != 'html5') {
+                    App.vent.trigger('stream:ready', streamInfo);
+                    stateModel.destroy();
+                }
             }
         };
 
-        App.vent.on('subtitle:downloaded', function (sub) {
+        App.vent.on('subtitle:downloaded', function(sub) {
             if (sub) {
                 stateModel.get('streamInfo').set('subFile', sub);
                 App.vent.trigger('subtitle:convert', {
                     path: sub,
                     language: torrent.defaultSubtitle
-                }, function (err, res) {
+                }, function(err, res) {
                     if (err) {
                         win.error('error converting subtitles', err);
                         stateModel.get('streamInfo').set('subFile', null);
@@ -156,40 +160,40 @@ if(AdvSettings.get('chosenPlayer') != 'html5'){
             downloadedSubtitles = true;
         });
 
-        engine.server.on('listening', function () {
+        engine.server.on('listening', function() {
             if (engine) {
                 //streamInfo.set('src', 'http://127.0.0.1:' + engine.server.address().port + '/');
-				streamInfo.set('src', 'http://127.0.0.1:' + engine.server.address().port);
+                streamInfo.set('src', 'http://127.0.0.1:' + engine.server.address().port);
                 streamInfo.set('type', 'video/mp4');
                 stateModel.on('change:state', checkReady);
 
 
-if(AdvSettings.get('chosenPlayer')=='html5'){
-	$('.vjs-play-control').click();
+                if (AdvSettings.get('chosenPlayer') == 'html5') {
+                    $('.vjs-play-control').click();
 
-	gui.Shell.openExternal('http://127.0.0.1:' + engine.server.address().port);
-	//Mousetrap.trigger('u'); //stream to browser
-}//else{
-	checkReady();
-//}
+                    gui.Shell.openExternal('http://127.0.0.1:' + engine.server.address().port);
+                    //Mousetrap.trigger('u'); //stream to browser
+                } //else{
+                checkReady();
+                //}
             }
         });
 
         // piecesGot before ready means the cache we already have
-        engine.on('ready', function () {
+        engine.on('ready', function() {
             if (engine) {
                 engine.swarm.cachedDownload = engine.swarm.piecesGot * (engine.torrent.pieceLength || 0);
             }
         });
 
-        engine.on('uninterested', function () {
+        engine.on('uninterested', function() {
             if (engine) {
                 engine.swarm.pause();
             }
 
         });
 
-        engine.on('interested', function () {
+        engine.on('interested', function() {
             if (engine) {
                 engine.swarm.resume();
             }
@@ -205,7 +209,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
 
 
     var Preload = {
-        start: function (model) {
+        start: function(model) {
 
             if (Streamer.currentTorrent && model.get('torrent') === Streamer.currentTorrent.get('torrent')) {
                 return;
@@ -215,7 +219,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
             win.debug('Preloading model:', model.get('title'));
             var torrent_url = model.get('torrent');
 
-            readTorrent(torrent_url, function (err, torrent) {
+            readTorrent(torrent_url, function(err, torrent) {
 
                 win.debug('Preloading torrent:', torrent.name);
                 var tmpFilename = torrent.infoHash;
@@ -242,7 +246,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
 
         },
 
-        stop: function () {
+        stop: function() {
 
             if (preload_engine) {
                 if (preload_engine.server._handle) {
@@ -265,7 +269,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
 
 
     var Streamer = {
-        start: function (model) {
+        start: function(model) {
             var torrentUrl = model.get('torrent');
             var torrent_read = false;
             if (model.get('torrent_read')) {
@@ -287,7 +291,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
 
             this.stop_ = false;
             var that = this;
-            var doTorrent = function (err, torrent) {
+            var doTorrent = function(err, torrent) {
                 // Return if streaming was cancelled while loading torrent
                 if (that.stop_) {
                     return;
@@ -300,12 +304,12 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
                     // did we need to extract subtitle ?
                     var extractSubtitle = model.get('extract_subtitle');
 
-                    var getSubtitles = function (data) {
+                    var getSubtitles = function(data) {
                         win.debug('Subtitles data request:', data);
 
                         var subtitleProvider = App.Config.getProvider('tvshowsubtitle');
 
-                        subtitleProvider.fetch(data).then(function (subs) {
+                        subtitleProvider.fetch(data).then(function(subs) {
                             if (subs && Object.keys(subs).length > 0) {
                                 subtitles = subs;
                                 win.info(Object.keys(subs).length + ' subtitles found');
@@ -316,7 +320,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
                                 win.warn('No subtitles returned');
                             }
                             hasSubtitles = true;
-                        }).catch(function (err) {
+                        }).catch(function(err) {
                             subtitles = null;
                             hasSubtitles = true;
                             downloadedSubtitles = true;
@@ -324,7 +328,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
                         });
                     };
 
-                    var handleTorrent_fnc = function () {
+                    var handleTorrent_fnc = function() {
                         // TODO: We should passe the movie / tvshow imdbid instead
                         // and read from the player
                         // so from there we can use the previous next etc
@@ -384,7 +388,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
                             }
                         }
                         if (torrent.files && torrent.files.length > 0 && !model.get('file_index') && model.get('file_index') !== 0) {
-                            torrent.files = $.grep(torrent.files, function (n) {
+                            torrent.files = $.grep(torrent.files, function(n) {
                                 return (n);
                             });
                             var fileModel = new Backbone.Model({
@@ -401,7 +405,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
                                     torrentMetadata = torrent.info.name.toString();
                                 }
                                 Common.matchTorrent(torrent.name, torrentMetadata)
-                                    .then(function (res) {
+                                    .then(function(res) {
                                         if (res.error) {
                                             win.warn(res.error);
                                             sub_data.filename = res.filename;
@@ -410,34 +414,34 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
                                             handleTorrent_fnc();
                                         } else {
                                             switch (res.type) {
-                                            case 'movie':
-                                                $('.loading-background').css('background-image', 'url(' + res.movie.image + ')');
-                                                sub_data.imdbid = res.movie.imdbid;
-                                                model.set('quality', res.quality);
-                                                model.set('imdb_id', sub_data.imdbid);
-                                                title = res.movie.title;
-                                                break;
-                                            case 'episode':
-                                                $('.loading-background').css('background-image', 'url(' + res.show.episode.image + ')');
-                                                sub_data.imdbid = res.show.imdbid;
-                                                sub_data.season = res.show.episode.season;
-                                                sub_data.episode = res.show.episode.episode;
-                                                model.set('quality', res.quality);
-                                                model.set('tvdb_id', res.show.tvdbid);
-                                                model.set('episode_id', res.show.episode.tvdbid);
-                                                model.set('imdb_id', res.show.imdbid);
-                                                model.set('episode', sub_data.episode);
-                                                model.set('season', sub_data.season);
-                                                title = res.show.title + ' - ' + i18n.__('Season %s', res.show.episode.season) + ', ' + i18n.__('Episode %s', res.show.episode.episode) + ' - ' + res.show.episode.title;
-                                                break;
-                                            default:
-                                                sub_data.filename = res.filename;
+                                                case 'movie':
+                                                    $('.loading-background').css('background-image', 'url(' + res.movie.image + ')');
+                                                    sub_data.imdbid = res.movie.imdbid;
+                                                    model.set('quality', res.quality);
+                                                    model.set('imdb_id', sub_data.imdbid);
+                                                    title = res.movie.title;
+                                                    break;
+                                                case 'episode':
+                                                    $('.loading-background').css('background-image', 'url(' + res.show.episode.image + ')');
+                                                    sub_data.imdbid = res.show.imdbid;
+                                                    sub_data.season = res.show.episode.season;
+                                                    sub_data.episode = res.show.episode.episode;
+                                                    model.set('quality', res.quality);
+                                                    model.set('tvdb_id', res.show.tvdbid);
+                                                    model.set('episode_id', res.show.episode.tvdbid);
+                                                    model.set('imdb_id', res.show.imdbid);
+                                                    model.set('episode', sub_data.episode);
+                                                    model.set('season', sub_data.season);
+                                                    title = res.show.title + ' - ' + i18n.__('Season %s', res.show.episode.season) + ', ' + i18n.__('Episode %s', res.show.episode.episode) + ' - ' + res.show.episode.title;
+                                                    break;
+                                                default:
+                                                    sub_data.filename = res.filename;
                                             }
                                             getSubtitles(sub_data);
                                             handleTorrent_fnc();
                                         }
                                     })
-                                    .catch(function (err) {
+                                    .catch(function(err) {
                                         title = $.trim(torrent.name.replace('[rartv]', '').replace('[PublicHD]', '').replace('[ettv]', '').replace('[eztv]', '')).replace(/[\s]/g, '.');
                                         sub_data.filename = title;
                                         win.error('An error occured while trying to get metadata and subtitles', err);
@@ -458,7 +462,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
             // HACK(xaiki): we need to go through parse torrent
             // if we have a torrent and not an http source, this
             // is fragile as shit.
-            if (typeof (torrentUrl) === 'string' && torrentUrl.substring(0, 7) === 'http://' && !torrentUrl.match('\\.torrent') && !torrentUrl.match('\\.php?')) {
+            if (typeof(torrentUrl) === 'string' && torrentUrl.substring(0, 7) === 'http://' && !torrentUrl.match('\\.torrent') && !torrentUrl.match('\\.php?')) {
                 return Streamer.startStream(model, torrentUrl, stateModel);
             } else if (!torrent_read) {
                 readTorrent(torrentUrl, doTorrent); //preload torrent
@@ -479,7 +483,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
 
 
 
-        startStream: function (model, url, stateModel) {
+        startStream: function(model, url, stateModel) {
             var si = new App.Model.StreamInfo({});
             si.set('title', url);
             si.set('subtitle', {});
@@ -493,7 +497,7 @@ if(AdvSettings.get('chosenPlayer')=='html5'){
             App.vent.trigger('stream:ready', si);
         },
 
-        stop: function () {
+        stop: function() {
             this.stop_ = true;
             if (engine) {
                 // update ratio
