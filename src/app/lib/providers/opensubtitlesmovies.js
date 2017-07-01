@@ -7,7 +7,7 @@
     var OpenSubtitlesApi = require('opensubtitles-api');
     var OS = new OpenSubtitlesApi('Popcorn Time v1');
 
-    var TTL = 1000 * 60 * 60 * 4; // 4 hours
+    var TTL = 1000 * 60 * 60 * 8; // 8 hours
 
     var OpenSubtitlesMovies = function() {
         App.Providers.CacheProvider.call(this, 'subtitle', TTL);
@@ -62,16 +62,13 @@
     };
 
     var querySubtitles = function(imdbIds) {
-        win.debug(imdbIds);
+        //win.debug(imdbIds);
 
         if (_.isEmpty(imdbIds)) {
             return {};
         }
 
         var deferred = Q.defer();
-
-        //var subtitlesList = {};
-        //subtitlesList.subs = {};
 
         //Cycle through each imdbId then return the sublist
         //Search for imdbId
@@ -84,7 +81,6 @@
                     gzip: false
                 }).then(subtitles => {
                     if (subtitles) {
-                        //win.debug("Returning Subtitles: " + JSON.stringify({[id]: subtitles}));
                         deferred.resolve({
                             [id]: subtitles
                         });
@@ -94,7 +90,7 @@
                     }
 
                 });
-                return deferred.promise; //.then(formatForPopcorn);
+                return deferred.promise;
             })).then(data => {
             //Create subtitleList Array and return based on the input list
             var subtitleList = {};
@@ -112,7 +108,6 @@
 
     var formatForPopcorn = function(data) {
         //win.debug("formatForPopcorn:data: " + JSON.stringify(data));
-
         var allSubs = {};
         // Iterate each movie
         _.each(data.subs, function(langs, imdbId) {
