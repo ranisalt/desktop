@@ -53,6 +53,10 @@
 
             if (stateModel.get('streamInfo').get('torrent').defaultSubtitle && stateModel.get('streamInfo').get('torrent').defaultSubtitle !== 'none' && hasSubtitles && subtitles !== null && engine.files[0] && !downloadedSubtitles && !subtitleDownloading) {
                 subtitleDownloading = true;
+                engine.files = _.sortBy(engine.files, function(fl) {
+                    return fl.length;
+                });
+                engine.files.reverse();
                 App.vent.trigger('subtitle:download', {
                     url: subtitles[stateModel.get('streamInfo').get('torrent').defaultSubtitle],
                     path: path.join(engine.path, engine.files[0].path)
