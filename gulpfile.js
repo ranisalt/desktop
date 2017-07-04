@@ -9,6 +9,7 @@ var detectCurrentPlatform = require('nw-builder/lib/detectCurrentPlatform.js');
 var nw = new NwBuilder({
     files: ['./src/**', './node_modules/**', './package.json'],
     version: '0.20.0',
+    zip: false,
     platforms: argv.p ? argv.p.split(',') : [detectCurrentPlatform()]
 }).on('log', console.log);
 
