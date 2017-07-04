@@ -127,7 +127,7 @@ Settings.ytsAPI = [{
     url: 'http://yify.is/',
     strictSSL: true
 }, {
-    url: 'https://yts.ag/',
+    url: 'http://yts.ag/',
     strictSSL: true
 }];
 
