@@ -582,8 +582,18 @@
             this.stop_ = true;
             if (engine) {
                 // update ratio
-                AdvSettings.set('totalDownloaded', Settings.totalDownloaded + engine.downloaded);
-                AdvSettings.set('totalUploaded', Settings.totalUploaded + engine.uploaded);
+                if (!Settings.totalDownloaded){
+                    Settings.totalDownloaded = 0;
+                }
+                Settings.totalDownloaded = Settings.totalDownloaded + engine.torrents[0].received;
+
+                if (!Settings.totalUploaded){
+                    Settings.totalUploaded = 0;
+                }
+                Settings.totalUploaded = Settings.totalUploaded + engine.torrents[0].uploaded;
+
+                AdvSettings.set('totalDownloaded', Settings.totalDownloaded);
+                AdvSettings.set('totalUploaded', Settings.totalUploaded);
 
                 if (engine.server._handle !== undefined && engine.server._handle) {
                     engine.server.close();
