@@ -1,4 +1,4 @@
-(function(App) {
+(function (App) {
     'use strict';
 
     var _ = require('underscore');
@@ -9,7 +9,7 @@
 
     var TTL = 1000 * 60 * 60 * 8; // 8 hours
 
-    var OpenSubtitlesMovies = function() {
+    var OpenSubtitlesMovies = function () {
         App.Providers.CacheProvider.call(this, 'subtitle', TTL);
     };
 
@@ -61,7 +61,7 @@
         'vietnamese': 'vi'
     };
 
-    var querySubtitles = function(imdbIds) {
+    var querySubtitles = function (imdbIds) {
         //win.debug(imdbIds);
 
         if (_.isEmpty(imdbIds)) {
@@ -73,7 +73,7 @@
         //Cycle through each imdbId then return the sublist
         //Search for imdbId
         return Q.all(
-            _.map(imdbIds, function(id) {
+            _.map(imdbIds, function (id) {
                 var deferred = Q.defer();
 
                 OS.search({
@@ -96,9 +96,9 @@
             var subtitleList = {};
             subtitleList.subs = {};
 
-            _.each(data, function(item) {
+            _.each(data, function (item) {
                 for (var name in item) {
-                    win.debug("Subtitle IMDB ID: " + name);
+                    //win.debug("Subtitle IMDB ID: " + name);
                     subtitleList.subs[name] = item[name];
                 }
             });
@@ -106,19 +106,28 @@
         });
     };
 
-    var formatForPopcorn = function(data) {
+    var normalizeLangCodes = function (data) {
+        if ('pb' in data) {
+            data['pt-br'] = data['pb'];
+            delete data['pb'];
+        }
+        return data;
+    };
+
+    var formatForPopcorn = function (data) {
         //win.debug("formatForPopcorn:data: " + JSON.stringify(data));
         var allSubs = {};
         // Iterate each movie
-        _.each(data.subs, function(langs, imdbId) {
+        _.each(data.subs, function (langs, imdbId) {
             var movieSubs = {};
+            langs = normalizeLangCodes(langs);
             // Iterate each language
-            _.each(langs, function(subs, lang) {
+            _.each(langs, function (subs, lang) {
                 // Pick highest rated
                 var langCode = lang;
                 var ratedSub = _.max({
                     subs
-                }, function(s) {
+                }, function (s) {
                     return s.score;
                 });
                 movieSubs[langCode] = ratedSub.url;
@@ -126,7 +135,6 @@
 
             // Remove unsupported subtitles
             var filteredSubtitle = App.Localization.filterSubtitle(movieSubs);
-
             allSubs[imdbId] = filteredSubtitle;
         });
 
@@ -135,7 +143,7 @@
         return Common.sanitize(allSubs);
     };
 
-    OpenSubtitlesMovies.prototype.query = function(ids) {
+    OpenSubtitlesMovies.prototype.query = function (ids) {
         return Q.when(querySubtitles(ids)).then(formatForPopcorn);
     };
 
