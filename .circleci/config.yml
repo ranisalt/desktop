@@ -35,12 +35,13 @@ jobs:
           
       - run: npm install
       - run: sudo npm install -g gulp
-
-      #- run: ./node_modules/.bin/gulp build -p linux32,linux64,win32
         
       # run tests!
       #- run: gulp build linux32,linux64,win32
-      - run: gulp build
+      - run: gulp build -p linux32,linux64,win32,win64
+      
+      - deploy:
+         command: gulp zip
       
       #store cache dependencies
       - save_cache:
@@ -54,5 +55,5 @@ jobs:
          key: v1-nodecache-{{ checksum "gulpfile.js" }}
           
       - store_artifacts:
-         path: ~/repo/build/Popcorn-Time-CE
+         path: ~/repo/dist
 
