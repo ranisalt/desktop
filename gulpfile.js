@@ -7,7 +7,7 @@ var argv = require('yargs')
 var del = require('del');
 var detectCurrentPlatform = require('nw-builder/lib/detectCurrentPlatform.js');
 var nw = new NwBuilder({
-    files: ['./src/**', './node_modules/**', './package.json'],
+    files: ['./src/**', './node_modules/**', './package.json','./install','LICENSE.txt','CHANGELOG.md','README.md'],
     version: '0.20.0',
     zip: false,
     platforms: argv.p ? argv.p.split(',') : [detectCurrentPlatform()]
