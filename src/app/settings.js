@@ -129,13 +129,13 @@ Settings.tvAPI = [{
 }];
 
 Settings.ytsAPI = [{
-    url: 'http://yts.ph/',
+    url: 'http://yts.ag/',
     strictSSL: true
 }, {
     url: 'http://yify.is/',
     strictSSL: true
 }, {
-    url: 'http://yts.ag/',
+    url: 'http://yts.ph/',
     strictSSL: true
 }];
 
