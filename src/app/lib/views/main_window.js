@@ -206,12 +206,8 @@
 
                     //Initialize Google Analytics
                     if (App.settings.analytics) {
-                        ga('send', {
-                            'hitType': 'pageview',
-                            'page': '/popcorntimece/',
-                            'title': 'Main Window'
-                        });
-                        win.debug("Analytics:Main Window");
+                        // Sets the page value on the tracker.
+                        ga('set', 'page', '/popcorntimece/');
                     }
 
                     that.InitModal.destroy();
@@ -266,9 +262,9 @@
             this.MovieDetail.destroy();
 
             if (App.settings.analytics) {
+                ga('set','page','/popcorntimece/movie/');
                 ga('send', {
                     'hitType': 'pageview',
-                    'page': '/popcorntimece/movie/',
                     'title': 'Movie List'
                 });
                 win.debug("Analytics:Movie List");
@@ -281,9 +277,9 @@
             this.MovieDetail.destroy();
 
             if (App.settings.analytics) {
+                ga('set','page','/popcorntimece/show/');
                 ga('send', {
                     'hitType': 'pageview',
-                    'page': '/popcorntimece/show/',
                     'title': 'TV Show List'
                 });
                 win.debug("Analytics:TVShow List");

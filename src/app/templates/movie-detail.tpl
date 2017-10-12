@@ -88,7 +88,7 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
 
             <div class="button dropup" id="player-chooser"></div>
 
-            <div id="watch-trailer" class="button">
+            <div id="watch-trailer" class="button" data-on="click" data-event-category="Movie" data-event-action="Watch Trailer" data-event-label="<%= title %>">
                 <%=i18n.__("Watch Trailer") %>
             </div>
 
@@ -116,9 +116,9 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
 
     <%
         if (Settings.analytics) {
+            ga('set','page','/popcorntimece/movie/detail/' + title);
             ga('send', {
                 'hitType': 'pageview',
-                'page': '/popcorntimece/movie/detail/' + title,
                 'title': title
             });
             win.debug("Analytics:Movie Detail");

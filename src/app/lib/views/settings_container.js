@@ -283,6 +283,9 @@
                 case 'minimizeToTray':
                 case 'bigPicture':
                 case 'analytics':
+                    value = field.is(':checked');
+                    window['ga-disable-'+AdvSettings.get('gaCode')] = !value;
+                    break;
                 case 'activateTorrentCollection':
                 case 'activateAutoplay':
                 case 'activateRandomize':
