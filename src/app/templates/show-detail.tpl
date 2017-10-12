@@ -165,9 +165,9 @@
 </div>
 <%
     if (App.settings.analytics) {
+        ga('set','page','/popcorntimece/show/detail/' + title);
         ga('send', {
             'hitType': 'pageview',
-            'page': '/popcorntimece/show/detail/' + title,
             'title': title
         });
         win.debug("Analytics:TVShow Detail");
