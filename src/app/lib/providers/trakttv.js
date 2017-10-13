@@ -8,8 +8,8 @@
         inherits = require('util').inherits;
 
     var API_ENDPOINT = URI('https://api.trakt.tv'),
-        CLIENT_ID = 'c7e20abc718e46fc75399dd6688afca9ac83cd4519c9cb1fba862b37b8640e89',
-        CLIENT_SECRET = '476cf15ed52542c2c8dc502821280aa5f61a012db57f1ed1f479aaf88ab385cb',
+        CLIENT_ID = '3cdac1a63e01706452e6d52c70264cb4c9fe2d95d4c8d315521081c9f14c82ad',
+        CLIENT_SECRET = '5a22c1a5da51bb6f8dcdd2ab57f708c6bccf0e9915e67299d1eeab77ddfd7713',
         REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob';
 
     function TraktTv() {

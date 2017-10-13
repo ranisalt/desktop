@@ -73,6 +73,15 @@
             Mousetrap.bind(['esc', 'backspace'], function (e) {
                 _this.cancelStreaming();
             });
+            Mousetrap.bind(['space'], function (e) {
+                _this.toggleStreaming();
+            });
+            Mousetrap.bind(['left'], function (e) {
+                _this.backwardStreaming();
+            });
+            Mousetrap.bind(['right'], function (e) {
+                _this.forwardStreaming();
+            });
         },
 
         unbindKeyboardShortcuts: function () {
@@ -115,6 +124,11 @@
                 // The 'downloading' state is not always sent, eg when playing canceling and replaying
                 // Start listening here instead when playing externally
                 this.listenTo(this.model.get('streamInfo'), 'change:downloaded', this.onProgressUpdate);
+                this.listenTo(this.model.get('streamInfo'), 'change:downloadSpeed', this.updateDownloadSpeed);
+                this.listenTo(this.model.get('streamInfo'), 'change:uploadSpeed', this.updateUploadSpeed);
+                this.listenTo(this.model.get('streamInfo'), 'change:active_peers', this.updateActivePeers);
+                this.listenTo(this.model.get('streamInfo'), 'change:downloadedPercent', this.updateDownloadPercent);
+
                 // The first progress update can take some time, so force updating the UI immediately
                 this.onProgressUpdate();
             }
@@ -169,6 +183,22 @@
             }
         },
 
+        updateDownloadSpeed: function () {
+            this.ui.downloadSpeed.text(this.model.get('streamInfo').get('downloadSpeed'));
+        },
+
+        updateUploadSpeed: function () {
+            this.ui.uploadSpeed.text(this.model.get('streamInfo').get('uploadSpeed'));
+        },
+
+        updateActivePeers: function () {
+            this.ui.progressTextPeers.text(this.model.get('streamInfo').get('active_peers'));
+        },
+
+        updateDownloadPercent: function () {
+            this.ui.bufferPercent.text(this.model.get('streamInfo').get('downloadedPercent').toFixed() + '%');
+        },
+
         cancelStreaming: function () {
 
             // call stop if we play externally
@@ -195,6 +225,17 @@
             win.debug('Play triggered');
             App.vent.trigger('device:unpause');
             $('.play').removeClass('fa-play').removeClass('play').addClass('fa-pause').addClass('pause');
+        },
+
+        toggleStreaming: function () {
+            if ($('.play').length) {
+                this.resumeStreaming();
+                return;
+            }
+            if ($('.pause').length) {
+                this.pauseStreaming();
+                return;
+            }
         },
 
         stopStreaming: function () {

@@ -1,42 +1,60 @@
 <div class="fa fa-times close-icon"></div>
 <div class="tv-poster">
-    <div data-bgr="<%= images.fanart %>" class="tv-poster-background"><div class="tv-poster-overlay"></div></div>
+    <div data-bgr="<%= images.fanart %>" class="tv-poster-background">
+        <div class="tv-poster-overlay"></div>
+    </div>
     <div data-bgr="<%= images.poster %>" class="tv-cover"></div>
 
     <div class="tv-meta-data">
-        <div class="tv-title"><%= title %></div>
-        <div class="tv-year"><%= year %></div>
+        <div class="tv-title">
+            <%= title %>
+        </div>
+        <div class="tv-year">
+            <%= year %>
+        </div>
         <div class="tv-dot"></div>
-        <div class="tv-runtime"><%= runtime %> min</div>
+        <div class="tv-runtime">
+            <%= runtime %> min</div>
         <div class="tv-dot"></div>
-        <div class="tv-status"><%= status !== undefined ? i18n.__(status.capitalizeEach()) : i18n.__("N/A") %></div>
+        <div class="tv-status">
+            <%= status !== undefined ? i18n.__(status.capitalizeEach()) : i18n.__("N/A") %>
+        </div>
         <div class="tv-dot"></div>
-        <div class="tv-genre"><%= i18n.__(genres[0]) %></div>
+        <div class="tv-genre">
+            <%= i18n.__(genres[0]) %>
+        </div>
         <div class="tv-dot"></div>
-        <div data-toggle="tooltip" data-placement="top" title="<%=i18n.__("Open IMDb page") %>" class="show-imdb-link"></div>
+        <div data-toggle="tooltip" data-placement="top" title="<%=i18n.__(" Open IMDb page ") %>" class="show-imdb-link"></div>
         <div class="tv-dot"></div>
         <div class="rating-container-tv">
             <% p_rating = Math.round(rating.percentage) / 20; // Roundoff number to nearest 0.5 %>
-            <div data-toggle="tooltip" data-placement="right" title="<%= Math.round(rating.percentage) / 10 %> /10" class="star-container-tv">
+                <div data-toggle="tooltip" data-placement="right" title="<%= Math.round(rating.percentage) / 10 %> /10" class="star-container-tv">
 
-            <% for (var i = 1; i <= Math.floor(p_rating); i++) { %>
-                    <i class="fa fa-star rating-star"></i>
-                <% }; %>
-                <% if (p_rating % 1 > 0) { %>
-                    <span class = "fa-stack rating-star-half-container">
+                    <% for (var i = 1; i <= Math.floor(p_rating); i++) { %>
+                        <i class="fa fa-star rating-star"></i>
+                        <% }; %>
+                            <% if (p_rating % 1 > 0) { %>
+                                <span class="fa-stack rating-star-half-container">
                         <i class="fa fa-star fa-stack-1x rating-star-half-empty"></i>
                         <i class="fa fa-star-half fa-stack-1x rating-star-half"></i>
                     </span>
-                <% }; %>
-                <% for (var i = Math.ceil(p_rating); i < 5; i++) { %>
-                    <i class="fa fa-star rating-star-empty"></i>
-            <% }; %>
-            </div>
-            <div class="number-container-tv hidden"><%= Math.round(rating.percentage) / 10 %> <em>/10</em></div>
+                                <% }; %>
+                                    <% for (var i = Math.ceil(p_rating); i < 5; i++) { %>
+                                        <i class="fa fa-star rating-star-empty"></i>
+                                        <% }; %>
+                </div>
+                <div class="number-container-tv hidden">
+                    <%= Math.round(rating.percentage) / 10 %> <em>/10</em></div>
         </div>
-        <div class="tv-overview"><%= synopsis %></div>
-        <div class="favourites-toggle"><%=i18n.__("Add to bookmarks") %></div>
-        <div class="show-watched-toggle"><%=i18n.__("Mark as Seen") %></div>
+        <div class="tv-overview">
+            <%= synopsis %>
+        </div>
+        <div class="favourites-toggle">
+            <%=i18n.__("Add to bookmarks") %>
+        </div>
+        <div class="show-watched-toggle">
+            <%=i18n.__("Mark as Seen") %>
+        </div>
     </div>
 </div>
 
@@ -44,8 +62,8 @@
     <div class="episode-info">
         <div class="episode-info-title"></div>
         <div class="episode-info-number"></div>
-        <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Health Unknown") %>" class="fa fa-circle health-icon None"></div>
-        <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__("Magnet link") %>" class="fa fa-magnet show-magnet-link"></div>
+        <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__(" Health Unknown ") %>" class="fa fa-circle health-icon None"></div>
+        <div data-toggle="tooltip" data-placement="left" title="<%=i18n.__(" Magnet link ") %>" class="fa fa-magnet show-magnet-link"></div>
         <div class="episode-info-date"></div>
         <div class="episode-info-description"></div>
         <div class="show-quality-container">
@@ -61,8 +79,12 @@
     </div>
 
     <div class="display-base-title">
-        <div class="episode-list-seasons"><%= i18n.__("Seasons") %></div>
-        <div class="episode-list-episodes"><%= i18n.__("Episodes") %></div>
+        <div class="episode-list-seasons">
+            <%= i18n.__("Seasons") %>
+        </div>
+        <div class="episode-list-episodes">
+            <%= i18n.__("Episodes") %>
+        </div>
     </div>
 
     <div class="season-episode-container">
@@ -76,9 +98,11 @@
                     });
                     _.each(torrents, function(value, season) { %>
                         <li class="tab-season" data-tab="season-<%=season %>">
-                            <a><%= i18n.__("Season %s", season) %></a>
+                            <a>
+                                <%= i18n.__("Season %s", season) %>
+                            </a>
                         </li>
-                    <% }); %>
+                        <% }); %>
                 </ul>
             </div>
             <div class="tabs-episodes">
@@ -107,9 +131,11 @@
                                 <li class="tab-episode" data-id="<%=episodeData.tvdb_id %>">
                                     <a href="#" class="episodeData">
                                         <span><%=episodeData.episode %></span>
-                                        <div><%=episodeData.title %></div>
+                                        <div>
+                                            <%=episodeData.title %>
+                                        </div>
                                     </a>
-                                    
+
                                     <i id="watched-<%=episodeData.season%>-<%=episodeData.episode%>" class="fa fa-eye watched"></i>
 
 
@@ -125,11 +151,25 @@
                                         <span class="q1080"><%=q1080 %></span>
                                     </div>
                                 </li>
-                            <% }); %>
+                                <% }); %>
                         </ul>
-                    </div><!--End tabs-episode-->
-                <% }); %>
-            </div><!--End tabs-episode-base-->
-        </div><!--End tabs_base-->
-    </div><!--End season-episode-container-->
+                    </div>
+                    <!--End tabs-episode-->
+                    <% }); %>
+            </div>
+            <!--End tabs-episode-base-->
+        </div>
+        <!--End tabs_base-->
+    </div>
+    <!--End season-episode-container-->
 </div>
+<%
+    if (App.settings.analytics) {
+        ga('set','page','/popcorntimece/show/detail/' + title);
+        ga('send', {
+            'hitType': 'pageview',
+            'title': title
+        });
+        win.debug("Analytics:TVShow Detail");
+    }
+%>

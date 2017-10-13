@@ -66,7 +66,7 @@ Settings.traktPlayback = true;
 Settings.tvstAccessToken = '';
 
 // Advanced options
-Settings.connectionLimit = 100;
+Settings.connectionLimit = 200;
 Settings.dhtLimit = 500;
 Settings.streamPort = 0; // 0 = Random
 Settings.tmpLocation = path.join(os.tmpDir(), 'Popcorn-Time');
@@ -76,6 +76,9 @@ Settings.automaticUpdating = true;
 Settings.events = false;
 Settings.minimizeToTray = false;
 Settings.bigPicture = false;
+
+//Network
+Settings.networkUrl = '127.0.0.1';
 
 // Plugins
 Settings.pluginGoogleDrive = true;
@@ -103,31 +106,36 @@ Settings.vpn = false;
 Settings.vpnUsername = '';
 Settings.vpnPassword = '';
 
+// OpenSubtitles Login
+Settings.opensubtitles = true;
+Settings.opsUsername = '';
+Settings.opsPassword = '';
+
 Settings.tvAPI = [{
     url: 'http://eztv.is/api/',
     strictSSL: true
-},{
+}, {
     url: 'https://api-fetch.website/tv/',
     strictSSL: true
-},{
+}, {
     url: 'https://eztvapi.ml/',
     strictSSL: true
-},{
+}, {
     url: 'https://popcorntime.ws/api/eztv/',
     strictSSL: true
-},{
+}, {
     url: 'https://popcorntimece.ch/api/eztv/',
     strictSSL: true
 }];
 
 Settings.ytsAPI = [{
-    url: 'http://yts.ph/',
+    url: 'http://yts.ag/',
     strictSSL: true
-},{
+}, {
     url: 'http://yify.is/',
     strictSSL: true
-},{
-    url: 'https://yts.ag/',
+}, {
+    url: 'http://yts.ph/',
     strictSSL: true
 }];
 
@@ -143,6 +151,21 @@ Settings.updateEndpoint = {
     }]
 };
 
+Settings.trackersList = ['https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all_udp.txt'];
+
+Settings.trackers = [
+    'udp://glotorrents.pw:6969/announce',
+    'udp://tracker.coppersurfer.tk:6969/announce',
+    'udp://tracker.leechers-paradise.org:6969/announce',
+    'udp://tracker.internetwarriors.net:1337/announce',
+    'udp://tracker.openbittorrent.com:80/announce',
+    'udp://p4p.arenabg.ch:1337/announce',
+    'udp://open.demonii.com:1337/announce',
+    'udp://tracker.opentrackr.org:1337/announce',
+    'udp://torrent.gresille.org:80/announce',
+    'udp://public.popcorn-tracker.org:6969/announce'
+];
+
 // App Settings
 Settings.version = false;
 Settings.dbversion = '0.1.0';
@@ -156,6 +179,9 @@ Settings.playerVolume = '1';
 Settings.tv_detail_jump_to = 'next';
 Settings.rememberRegister = true;
 
+//GA Code
+Settings.gaCode = 'UA-72854850-1'; //PROD - 1, TEST - 3
+Settings.analytics = true;
 
 var ScreenResolution = {
     get SD() {
@@ -183,7 +209,7 @@ var ScreenResolution = {
 
 var AdvSettings = {
 
-    get: function (variable) {
+    get: function(variable) {
         if (typeof Settings[variable] !== 'undefined') {
             return Settings[variable];
         }
@@ -191,22 +217,22 @@ var AdvSettings = {
         return false;
     },
 
-    set: function (variable, newValue) {
+    set: function(variable, newValue) {
         Database.writeSetting({
                 key: variable,
                 value: newValue
             })
-            .then(function () {
+            .then(function() {
                 Settings[variable] = newValue;
             });
     },
 
-    setup: function () {
+    setup: function() {
         AdvSettings.performUpgrade();
         return AdvSettings.getHardwareInfo();
     },
 
-    getHardwareInfo: function () {
+    getHardwareInfo: function() {
         if (/64/.test(process.arch)) {
             AdvSettings.set('arch', 'x64');
         } else {
@@ -231,7 +257,7 @@ var AdvSettings = {
         return Q();
     },
 
-    getNextApiEndpoint: function (endpoint) {
+    getNextApiEndpoint: function(endpoint) {
         if (endpoint.index < endpoint.proxies.length - 1) {
             endpoint.index++;
         } else {
@@ -242,13 +268,13 @@ var AdvSettings = {
         return endpoint;
     },
 
-    checkApiEndpoints: function (endpoints) {
-        return Q.all(_.map(endpoints, function (endpoint) {
+    checkApiEndpoints: function(endpoints) {
+        return Q.all(_.map(endpoints, function(endpoint) {
             return AdvSettings.checkApiEndpoint(endpoint);
         }));
     },
 
-    checkApiEndpoint: function (endpoint, defer) {
+    checkApiEndpoint: function(endpoint, defer) {
         if (Settings.automaticUpdating === false) {
             return;
         }
@@ -265,8 +291,8 @@ var AdvSettings = {
         win.debug('Checking %s endpoint', url.hostname);
 
         if (endpoint.ssl === false) {
-            var timeoutWrapper = function (req) {
-                return function () {
+            var timeoutWrapper = function(req) {
+                return function() {
                     win.warn('[%s] Endpoint timed out',
                         url.hostname);
                     req.abort();
@@ -275,8 +301,8 @@ var AdvSettings = {
             };
             var request = http.get({
                 hostname: url.hostname
-            }, function (res) {
-                res.once('data', function (body) {
+            }, function(res) {
+                res.once('data', function(body) {
                     clearTimeout(timeout);
                     res.removeAllListeners('error');
                     // Doesn't match the expected response
@@ -287,9 +313,9 @@ var AdvSettings = {
                             body.toString('utf8'));
                         tryNextEndpoint();
                     } else {*/
-                        defer.resolve();
+                    defer.resolve();
                     //}
-                }).once('error', function (e) {
+                }).once('error', function(e) {
                     win.warn('[%s] Endpoint failed [%s]',
                         url.hostname,
                         e.message);
@@ -304,7 +330,7 @@ var AdvSettings = {
             tls.connect(443, url.hostname, {
                 servername: url.hostname,
                 rejectUnauthorized: false
-            }, function () {
+            }, function() {
                 this.setTimeout(0);
                 this.removeAllListeners('error');
                 /*if (!this.authorized ||
@@ -318,16 +344,16 @@ var AdvSettings = {
                         this.getPeerCertificate().fingerprint);
                     tryNextEndpoint();
                 } else {*/
-                    defer.resolve();
+                defer.resolve();
                 //}
                 this.end();
-            }).once('error', function (e) {
+            }).once('error', function(e) {
                 win.warn('[%s] Endpoint failed [%s]',
                     url.hostname,
                     e.message);
                 this.setTimeout(0);
                 tryNextEndpoint();
-            }).once('timeout', function () {
+            }).once('timeout', function() {
                 win.warn('[%s] Endpoint timed out',
                     url.hostname);
                 this.removeAllListeners('error');
@@ -351,7 +377,7 @@ var AdvSettings = {
         return defer.promise;
     },
 
-    performUpgrade: function () {
+    performUpgrade: function() {
         // This gives the official version (the package.json one)
         gui = require('nw.gui');
         var currentVersion = gui.App.manifest.version;
@@ -361,7 +387,7 @@ var AdvSettings = {
             // Todo: Make this nicer so we don't lose all the cached data
             var cacheDb = openDatabase('cachedb', '', 'Cache database', 50 * 1024 * 1024);
 
-            cacheDb.transaction(function (tx) {
+            cacheDb.transaction(function(tx) {
                 tx.executeSql('DELETE FROM subtitle');
                 tx.executeSql('DELETE FROM metadata');
             });

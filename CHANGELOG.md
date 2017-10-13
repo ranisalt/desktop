@@ -1,3 +1,15 @@
+## 0.4.1-9 Beta - I have a need for speed - 10 October 2017
+
+New Features: 
+
+- Added webtorrent support to Movie and TV Shows download
+- Added opensubtitles support
+
+BugFixes: 
+
+- Stats on download details update after download complete
+- PT-BR subtitles are supported again
+
 ## 0.4.1-5 Beta - New Year's Eve in front of the door - 28 December 2016
 
 New Features: 

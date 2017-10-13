@@ -1,0 +1,59 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+general:
+  branches:
+    only:
+     - master # list of branches to build
+     - develop
+     - /feature.*/ # or regexes
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:8.2.1
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-nodecache-{{ checksum "gulpfile.js" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+          
+      - run: npm install
+      - run: sudo npm install -g gulp
+        
+      # run tests!
+      #- run: gulp build linux32,linux64,win32
+      - run: gulp build -p linux32,linux64,win32,win64
+      
+      - deploy:
+         command: gulp zip
+      
+      #store cache dependencies
+      - save_cache:
+         paths:
+            - node_modules
+         key: v1-dependencies-{{ checksum "package.json" }}
+          
+      - save_cache:
+         paths:
+            - cache
+         key: v1-nodecache-{{ checksum "gulpfile.js" }}
+          
+      - store_artifacts:
+         path: ~/repo/dist
+

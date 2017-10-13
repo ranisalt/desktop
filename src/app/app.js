@@ -497,6 +497,7 @@ var handleVideoFile = function (file) {
 };
 
 var handleTorrent = function (torrent) {
+    torrent = unescape(url.parse(torrent, true).path);
     try {
         App.PlayerView.closePlayer();
     } catch (err) {
