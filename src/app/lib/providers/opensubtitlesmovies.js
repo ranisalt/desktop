@@ -5,7 +5,9 @@
     var request = require('request');
     var Q = require('q');
     var OpenSubtitlesApi = require('opensubtitles-api');
-    var OS = new OpenSubtitlesApi('Popcorn Time v1');
+    var OS = new OpenSubtitlesApi({
+        useragent: 'Popcorn Time v1'
+    });
 
     var TTL = 1000 * 60 * 60 * 8; // 8 hours
 
@@ -88,7 +90,9 @@
                         //subtitles is blank
                         deferred.resolve({});
                     }
-
+                }).catch(err => {
+                    win.error("OpenSubtitles API Error: " + err);
+                    deferred.resolve({});
                 });
                 return deferred.promise;
             })).then(data => {
@@ -98,7 +102,7 @@
 
             _.each(data, function (item) {
                 for (var name in item) {
-                    //win.debug("Subtitle IMDB ID: " + name);
+                    win.debug("Subtitle IMDB ID: " + name);
                     subtitleList.subs[name] = item[name];
                 }
             });
