@@ -11,8 +11,9 @@ var package = require('./package.json');
 
 var nw = new NwBuilder({
     files: ['./src/**', './node_modules/**', './package.json','./install','LICENSE.txt','CHANGELOG.md','README.md'],
-    version: '0.20.0',
+    version: '0.20.1',
     zip: false,
+    downloadUrl: 'http://builds.butterproject.org/nw/',
     platforms: argv.p ? argv.p.split(',') : [detectCurrentPlatform()]
 }).on('log', console.log);
 

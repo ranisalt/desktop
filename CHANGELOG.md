@@ -1,3 +1,16 @@
+## 0.4.1-11 Beta - Now with some butter - 6 December 2017
+
+New Features: 
+
+- Watch movies and tv series directly in the PopcornTime player.
+
+BugFixes: 
+
+- Updated nw.js with ffmpeg fix from Butter Project (butterproject.org)
+
+OpenSubtitles:
+- Added error handling to OpenSubtitles search call, movie list will appear after a short time.
+
 ## 0.4.1-9 Beta - I have a need for speed - 10 October 2017
 
 New Features: 
