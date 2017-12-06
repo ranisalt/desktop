@@ -10,9 +10,9 @@
     },
     "license": "GPL-3.0",
     "main": "src/app/index.html",
-    "version": "0.4.1-9",
+    "version": "0.4.1-11",
     "node-remote": "*://*",
-    "releaseName": "I have a need for speed",
+    "releaseName": "Now with some butter",
     "scripts": {
         "start": "gulp run"
     },
@@ -78,7 +78,7 @@
         "eslint-config-google": "^0.8.0",
         "gulp": "^3.9.1",
         "gulp-zip": "~4.0.0",
-        "nw-builder": "^3.2.3",
+        "nw-builder": "^3.5.1",
         "nw-gyp": "^3.4.0",
         "yargs": "^7.0.2"
     },
