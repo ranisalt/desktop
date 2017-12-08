@@ -35,7 +35,10 @@ gulp.task('clean', function() {
 });
 
 gulp.task('zip', function () {
-    
+
+    gulp.src('./build/Popcorn-Time-CE/osx64/*')
+        .pipe(zip('popcorn-time-ce_osx64_'+package.version+'.gz'))
+        .pipe(gulp.dest('./dist'));
     gulp.src('./build/Popcorn-Time-CE/win32/*')
         .pipe(zip('popcorn-time-ce_win32_'+package.version+'.zip'))
         .pipe(gulp.dest('./dist'));
