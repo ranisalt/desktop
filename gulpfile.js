@@ -48,7 +48,7 @@ gulp.task('zip', function () {
     gulp.src('./build/Popcorn-Time-CE/linux32/*')
         .pipe(zip('popcorn-time-ce_linux32_'+package.version+'.gz'))
         .pipe(gulp.dest('./dist'));
-    return gulp.src('./build/Popcorn-Time-CE/linux64/*',)
+    return gulp.src('./build/Popcorn-Time-CE/linux64/*')
         .pipe(zip('popcorn-time-ce_linux64_'+package.version+'.gz'))
         .pipe(gulp.dest('./dist'));
 });
