@@ -26,6 +26,7 @@ Settings.postersJump = [134, 154, 174, 194, 214, 234, 254, 274, 294];
 Settings.alwaysFullscreen = false;
 Settings.playNextEpisodeAuto = true;
 Settings.chosenPlayer = 'local';
+Settings.bufferSize = 10 * 1024 * 1024;
 
 // Advanced UI
 Settings.alwaysOnTop = false;
