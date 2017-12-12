@@ -9,6 +9,7 @@ general:
      - master # list of branches to build
      - develop
      - /feature.*/ # or regexes
+     - greenkeeper.*/
 jobs:
   build:
     docker:
