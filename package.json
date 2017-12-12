@@ -10,7 +10,7 @@
     },
     "license": "GPL-3.0",
     "main": "src/app/index.html",
-    "version": "0.4.1-11",
+    "version": "0.4.1-12",
     "node-remote": "*://*",
     "releaseName": "Now with some butter",
     "scripts": {
