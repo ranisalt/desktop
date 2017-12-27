@@ -10,9 +10,9 @@
     },
     "license": "GPL-3.0",
     "main": "src/app/index.html",
-    "version": "0.4.1-13",
+    "version": "0.4.1-14",
     "node-remote": "*://*",
-    "releaseName": "Now with some butter",
+    "releaseName": "Lets start the New Year right...",
     "scripts": {
         "start": "gulp run"
     },
@@ -78,6 +78,8 @@
         "eslint-config-google": "^0.9.1",
         "gulp": "^3.9.1",
         "gulp-zip": "~4.0.0",
+        "gulp-gzip":"^1.4.0",
+        "gulp-tar": "^2.0.0",
         "nw-builder": "^3.5.1",
         "nw-gyp": "^3.4.0",
         "yargs": "^10.0.3"
