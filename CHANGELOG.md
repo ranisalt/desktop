@@ -1,3 +1,13 @@
+## 0.4.1-14 Beta - Lets start the New Year right... - 26 December 2017
+
+New Features: 
+
+- Packages are updated by Greenkeeper
+
+BugFixes: 
+
+- Fixed build archive so that all files are included when a new build is generated.  All builds should now have all the proper files as expected and run properly.
+- Updated dependencies
 ## 0.4.1-11 Beta - Now with some butter - 6 December 2017
 
 New Features: 
