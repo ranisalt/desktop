@@ -10,9 +10,9 @@
     },
     "license": "GPL-3.0",
     "main": "src/app/index.html",
-    "version": "0.4.1-13",
+    "version": "0.4.1-14",
     "node-remote": "*://*",
-    "releaseName": "Now with some butter",
+    "releaseName": "Lets start the New Year right...",
     "scripts": {
         "start": "gulp run"
     },
