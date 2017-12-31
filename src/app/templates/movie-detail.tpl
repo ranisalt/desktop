@@ -121,10 +121,9 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
                     title: title
                 });
 
-            /*ga('send', {
-                'hitType': 'pageview',
-                'title': title
-            });*/
+            ga('send', {
+                hitType: 'pageview'
+            });
             win.debug("Analytics:Movie Detail");
         }
     %>

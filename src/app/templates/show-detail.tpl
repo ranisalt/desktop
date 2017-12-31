@@ -98,7 +98,7 @@
                     });
                     _.each(torrents, function(value, season) { %>
                         <li class="tab-season" data-tab="season-<%=season %>">
-                            <a>
+                            <a data-on="click" data-event-category="TV Show" data-event-action="Click - TV Show Season" data-event-label="<%= title %> - Season <%=season%>">
                                 <%= i18n.__("Season %s", season) %>
                             </a>
                         </li>
@@ -129,7 +129,7 @@
 
                             %>
                                 <li class="tab-episode" data-id="<%=episodeData.tvdb_id %>">
-                                    <a href="#" class="episodeData">
+                                    <a href="#" class="episodeData" data-on="click" data-event-category="TV Show" data-event-action="Click - TV Show Episode" data-event-label="<%= title %> - S<%=episodeData.season%>E<%=episodeData.episode%> - <%=episodeData.title %>">
                                         <span><%=episodeData.episode %></span>
                                         <div>
                                             <%=episodeData.title %>
@@ -169,10 +169,9 @@
                 page: '/popcorntimece/show/detail/' + title,
                 title: title
          });
-        /*ga('send', {
-            'hitType': 'pageview',
-            'title': title
-        });*/
+        ga('send', {
+            hitType: 'pageview'
+        });
         win.debug("Analytics:TVShow Detail");
     }
 %>

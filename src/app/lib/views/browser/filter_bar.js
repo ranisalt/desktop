@@ -191,7 +191,11 @@
                 page: '/popcorntimece/search?s=' + encodeURI(searchvalue),
                 title: 'Search Results: ' + searchvalue
             });
-            
+
+            ga('send', {
+                hitType: 'pageview'
+            });
+
             this.model.set({
                 keywords: this.ui.searchInput.val(),
                 genre: ''

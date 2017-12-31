@@ -8,7 +8,7 @@
 		"indent_with_tabs": false,
 		"indent_size": 4,
 		"indent_char": " ",
-		"jslint_happy": true,
+		"jslint_happy": false,
 		"keep_array_indentation": false,
 		"keep_function_indentation": false,
 		"max_preserve_newlines": 3,

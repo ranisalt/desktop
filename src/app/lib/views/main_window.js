@@ -272,10 +272,9 @@
                     page: '/popcorntimece/movie/',
                     title: 'Movie List'
                 });
-                /*ga('send', {
-                    'hitType': 'pageview',
-                    'title': 'Movie List'
-                });*/
+                ga('send', {
+                    hitType: 'pageview'
+                });
                 win.debug("Analytics:Movie List");
             }
             this.Content.show(new App.View.MovieBrowser());
@@ -290,10 +289,9 @@
                     page: '/popcorntimece/show/',
                     title: 'TV Show List'
                 });
-                /*ga('send', {
-                    'hitType': 'pageview',
-                    'title': 'TV Show List'
-                });*/
+                ga('send', {
+                    hitType: 'pageview'
+                });
                 win.debug("Analytics:TVShow List");
             }
             this.Content.show(new App.View.ShowBrowser());
@@ -302,10 +300,13 @@
         showAnime: function(e) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
-             ga('set', {
-                    page: '/popcorntimece/anime/',
-                    title: 'Anime List'
-                });
+            ga('set', {
+                page: '/popcorntimece/anime/',
+                title: 'Anime List'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Content.show(new App.View.AnimeBrowser());
         },
 
@@ -349,10 +350,13 @@
         showFavorites: function(e) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
-             ga('set', {
-                    page: '/popcorntimece/favorites/',
-                    title: 'Favorites'
-                });
+            ga('set', {
+                page: '/popcorntimece/favorites/',
+                title: 'Favorites'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Content.show(new App.View.FavoriteBrowser());
         },
 
@@ -385,12 +389,18 @@
                 page: '/popcorntimece/watchlist/',
                 title: 'Watchlist'
             });
+            ga('send', {
+                hitType: 'pageview'
+            });
         },
 
         showDisclaimer: function(e) {
             ga('set', {
                 page: '/popcorntimece/disclaimer/',
                 title: 'Disclaimer'
+            });
+            ga('send', {
+                hitType: 'pageview'
             });
             this.Disclaimer.show(new App.View.DisclaimerModal());
         },
@@ -400,6 +410,9 @@
                 page: '/popcorntimece/register/',
                 title: 'Register'
             });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Register.show(new App.View.RegisterModal());
         },
 
@@ -407,6 +420,9 @@
             ga('set', {
                 page: '/popcorntimece/about/',
                 title: 'About'
+            });
+            ga('send', {
+                hitType: 'pageview'
             });
             this.About.show(new App.View.About());
         },
@@ -419,6 +435,9 @@
             ga('set', {
                 page: '/popcorntimece/plugins/',
                 title: 'Plugins'
+            });
+            ga('send', {
+                hitType: 'pageview'
             });
             this.Plugins.show(new App.View.Plugins());
         },
@@ -435,11 +454,14 @@
             }
         },
 
-        showHelp: function(e) { 
+        showHelp: function(e) {
             ga('set', {
-                    page: '/popcorntimece/help/',
-                    title: 'Help'
-                });
+                page: '/popcorntimece/help/',
+                title: 'Help'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Help.show(new App.View.Help());
         },
 
@@ -504,6 +526,9 @@
             ga('set', {
                 page: '/popcorntimece/settings/',
                 title: 'Settings'
+            });
+            ga('send', {
+                hitType: 'pageview'
             });
             this.Settings.show(new App.View.Settings({
                 model: settingsModel
