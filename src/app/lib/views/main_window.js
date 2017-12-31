@@ -211,7 +211,9 @@
                         //Set AppVersion
                         ga('set', 'appName', App.Config.title);
                         ga('set', 'appVersion', AdvSettings.get('version'));
-                        ga('send', 'screenview', {screenName: App.Config.title});
+                        ga('send', 'screenview', {
+                            screenName: App.Config.title
+                        });
                     }
 
                     that.InitModal.destroy();
@@ -266,11 +268,14 @@
             this.MovieDetail.destroy();
 
             if (App.settings.analytics) {
-                ga('set','page','/popcorntimece/movie/');
-                ga('send', {
+                ga('set', {
+                    page: '/popcorntimece/movie/',
+                    title: 'Movie List'
+                });
+                /*ga('send', {
                     'hitType': 'pageview',
                     'title': 'Movie List'
-                });
+                });*/
                 win.debug("Analytics:Movie List");
             }
             this.Content.show(new App.View.MovieBrowser());
@@ -281,11 +286,14 @@
             this.MovieDetail.destroy();
 
             if (App.settings.analytics) {
-                ga('set','page','/popcorntimece/show/');
-                ga('send', {
+                ga('set', {
+                    page: '/popcorntimece/show/',
+                    title: 'TV Show List'
+                });
+                /*ga('send', {
                     'hitType': 'pageview',
                     'title': 'TV Show List'
-                });
+                });*/
                 win.debug("Analytics:TVShow List");
             }
             this.Content.show(new App.View.ShowBrowser());

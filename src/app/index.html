@@ -3,11 +3,22 @@
 
 <head>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-ML5LN34');</script>
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-ML5LN34');
+    </script>
     <!-- End Google Tag Manager -->
 
     <meta charset="UTF-8">
@@ -19,7 +30,7 @@
 </head>
 
 <body>
-    
+
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ML5LN34"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -183,13 +194,14 @@
             a.async = 1;
             a.src = g;
             m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics_debug.js', 'ga');
         window.ga_debug = {
             trace: true
         }
         ga('create', Settings.gaCode, {
             //'cookieDomain': 'none'
         });
+
         ga('set', 'checkProtocolTask', function() { /* nothing */ });
 
         // Replace the following lines with the plugins you want to use.
@@ -201,9 +213,13 @@
         ga('require', 'impressionTracker', {
             attributePrefix: 'data-'
         });
-        ga('require', 'maxScrollTracker');
+        ga('require', 'maxScrollTracker', {
+            maxScrollMetricIndex: 1,
+        });
         ga('require', 'mediaQueryTracker');
-        ga('require', 'pageVisibilityTracker');
+        ga('require', 'pageVisibilityTracker', {
+            sendInitialPageview: true,
+        });
     </script>
     <script async src="vendor/autotrack/autotrack.js"></script>
     <script>

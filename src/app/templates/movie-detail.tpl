@@ -116,11 +116,15 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
 
     <%
         if (Settings.analytics) {
-            ga('set','page','/popcorntimece/movie/detail/' + title);
-            ga('send', {
+            ga('set', {
+                    page: '/popcorntimece/movie/detail/' + title,
+                    title: title
+                });
+
+            /*ga('send', {
                 'hitType': 'pageview',
                 'title': title
-            });
+            });*/
             win.debug("Analytics:Movie Detail");
         }
     %>
