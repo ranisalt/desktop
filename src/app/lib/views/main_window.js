@@ -302,7 +302,10 @@
         showAnime: function(e) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
-
+             ga('set', {
+                    page: '/popcorntimece/anime/',
+                    title: 'Anime List'
+                });
             this.Content.show(new App.View.AnimeBrowser());
         },
 
@@ -346,7 +349,10 @@
         showFavorites: function(e) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
-
+             ga('set', {
+                    page: '/popcorntimece/favorites/',
+                    title: 'Favorites'
+                });
             this.Content.show(new App.View.FavoriteBrowser());
         },
 
@@ -374,17 +380,34 @@
                 }
             }
             waitForSync();
+
+            ga('set', {
+                page: '/popcorntimece/watchlist/',
+                title: 'Watchlist'
+            });
         },
 
         showDisclaimer: function(e) {
+            ga('set', {
+                page: '/popcorntimece/disclaimer/',
+                title: 'Disclaimer'
+            });
             this.Disclaimer.show(new App.View.DisclaimerModal());
         },
 
         showRegister: function(e) {
+            ga('set', {
+                page: '/popcorntimece/register/',
+                title: 'Register'
+            });
             this.Register.show(new App.View.RegisterModal());
         },
 
         showAbout: function(e) {
+            ga('set', {
+                page: '/popcorntimece/about/',
+                title: 'About'
+            });
             this.About.show(new App.View.About());
         },
 
@@ -393,6 +416,10 @@
         },
 
         showPlugins: function(e) {
+            ga('set', {
+                page: '/popcorntimece/plugins/',
+                title: 'Plugins'
+            });
             this.Plugins.show(new App.View.Plugins());
         },
 
@@ -408,7 +435,11 @@
             }
         },
 
-        showHelp: function(e) {
+        showHelp: function(e) { 
+            ga('set', {
+                    page: '/popcorntimece/help/',
+                    title: 'Help'
+                });
             this.Help.show(new App.View.Help());
         },
 
@@ -470,6 +501,10 @@
         },
 
         showSettings: function(settingsModel) {
+            ga('set', {
+                page: '/popcorntimece/settings/',
+                title: 'Settings'
+            });
             this.Settings.show(new App.View.Settings({
                 model: settingsModel
             }));
