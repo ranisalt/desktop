@@ -529,5 +529,7 @@
 	" Comedy": " Comedy",
 	" Reality": " Reality",
 	" Documentary": " Documentary",
-	" Action": " Action"
+	" Action": " Action",
+	"comedy": " Comedy",
+	"western": " Western"
 }
