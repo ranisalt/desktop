@@ -80,7 +80,7 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
             <div class="flag-container">
                 <div class="sub-flag-icon flag none" data-lang="none" title="<%= i18n.__(" Disabled ") %>"></div>
                 <% for(var lang in subtitle){ %>
-                    <div class="sub-flag-icon flag <%= lang %>" data-lang="<%= lang %>" title="<%= App.Localization.langcodes[lang].nativeName %>"></div>
+                    <div class="sub-flag-icon flag <%= lang %>" data-lang="<%= lang %>" title="<%= App.Localization.langcodes[lang].nativeName %>" data-on="click" data-event-category="Movie" data-event-action="SelectSubtitles" data-event-label="<%= App.Localization.langcodes[lang].nativeName %>"></div>
                     <% } %>
             </div>
 
