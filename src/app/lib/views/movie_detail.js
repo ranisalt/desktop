@@ -237,7 +237,7 @@
                 hitType: 'event',
                 eventCategory: 'Movie',
                 eventAction: 'WatchPlayer',
-                eventLabel: App.Device.Collection.selected.get('name')
+                eventLabel: App.Device.Collection.selected.get('type') + " - " + App.Device.Collection.selected.get('name')
             });
 
             var player = $('.imgplayerchoice').attr('src');
@@ -329,6 +329,14 @@
                 win.debug('HD Enabled', this.model.get('quality'));
                 AdvSettings.set('movies_default_quality', '1080p');
             }
+
+            //GA: Player Launched
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Movie',
+                eventAction: 'SelectQuality',
+                eventLabel: "1080p"
+            });
         },
 
         disableHD: function() {
@@ -340,6 +348,13 @@
                 win.debug('HD Disabled', this.model.get('quality'));
                 AdvSettings.set('movies_default_quality', '720p');
             }
+            //GA: Player Launched
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Movie',
+                eventAction: 'SelectQuality',
+                eventLabel: "720p"
+            });
         },
 
         renderHealth: function() {

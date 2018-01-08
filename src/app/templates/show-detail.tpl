@@ -68,9 +68,9 @@
         <div class="episode-info-description"></div>
         <div class="show-quality-container">
             <div class="quality-selector">
-                <div id="q480" class="q480">480p</div>
-                <div id="q720" class="q720">720p</div>
-                <div id="q1080" class="q1080">1080p</div>
+                <div id="q480" class="q480" data-on="click" data-event-category="TV Show" data-event-action="SelectQuality" data-event-label="480p">480p</div>
+                <div id="q720" class="q720" data-on="click" data-event-category="TV Show" data-event-action="SelectQuality" data-event-label="720p">720p</div>
+                <div id="q1080" class="q1080" data-on="click" data-event-category="TV Show" data-event-action="SelectQuality" data-event-label="1080p">1080p</div>
             </div>
         </div>
         <div class="movie-btn-watch-episode">

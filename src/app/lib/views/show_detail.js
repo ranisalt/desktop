@@ -468,7 +468,7 @@
                 hitType: 'event',
                 eventCategory: 'TV Show',
                 eventAction: 'WatchPlayer',
-                eventLabel: App.Device.Collection.selected.get('name')
+                eventLabel: App.Device.Collection.selected.get('type')+" - "+App.Device.Collection.selected.get('name')
             });
 
             if (AdvSettings.get('playNextEpisodeAuto') && this.model.get('imdb_id').indexOf('mal') === -1) {
@@ -652,7 +652,7 @@
                 torrents.quality = '480p';
                 this.ui.q480p.addClass('active');
             }
-
+            
 
             $('.tab-episode.active').removeClass('active');
             $elem.addClass('active');
