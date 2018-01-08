@@ -232,6 +232,14 @@
         },
 
         startStreaming: function() {
+            //GA: Player Launched
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Movie',
+                eventAction: 'WatchPlayer',
+                eventLabel: App.Device.Collection.selected.get('name')
+            });
+
             var player = $('.imgplayerchoice').attr('src');
             if (!player.match(/[0-9]+.[0-9]+.[0-9]+.[0-9]/ig) &&
                 player == 'images/icons/googlecloud-icon.png' && this.model.get('google_video')) {
@@ -344,8 +352,8 @@
                 .tooltip('fixTitle');
 
             $('.health-icon').tooltip({
-                    html: true
-                })
+                html: true
+            })
                 .removeClass('Bad Medium Good Excellent')
                 .addClass(health)
                 .attr('data-original-title', i18n.__('Health ' + health) + ' - ' + i18n.__('Ratio:') + ' ' + ratio.toFixed(2) + ' <br> ' + i18n.__('Seeds') + ': ' + torrent.seed + ' - ' + i18n.__('Peers') + ': ' + torrent.peer)

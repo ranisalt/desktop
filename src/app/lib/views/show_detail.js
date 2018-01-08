@@ -458,11 +458,18 @@
                 episode: episode
             };
 
-
             var episodes = [];
             var episodes_data = [];
             var selected_quality = $(e.currentTarget).attr('data-quality');
             var auto_play = false;
+
+            //GA: Player Launched
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'TV Show',
+                eventAction: 'WatchPlayer',
+                eventLabel: App.Device.Collection.selected.get('name')
+            });
 
             if (AdvSettings.get('playNextEpisodeAuto') && this.model.get('imdb_id').indexOf('mal') === -1) {
                 _.each(this.model.get('episodes'), function (value) {

@@ -86,7 +86,7 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
 
             <br>
 
-            <div class="button dropup" id="player-chooser" data-on="click" data-event-category="Movie" data-event-action="Movie Player" data-event-label="<%= title %> Trailer"></div>
+            <div class="button dropup" id="player-chooser"></div>
 
             <div id="watch-trailer" class="button" data-on="click" data-event-category="Movie" data-event-action="Watch Trailer" data-event-label="<%= title %> Trailer">
                 <%=i18n.__("Watch Trailer") %>
