@@ -546,6 +546,13 @@
 
         traktAuthenticated: function() {
             win.info('Trakt: authenticated');
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Trakt',
+                eventAction: 'Trakt Authenticated',
+                eventLabel: 'Trakt Authenticated'
+            });
+
             if (Settings.traktSyncOnStart && (Settings.traktLastSync + 1800000 < new Date().valueOf())) { //only refresh every 30min
                 App.Trakt.sync.lastActivities()
                     .then(function(activities) { // check if new activities
@@ -553,6 +560,12 @@
                         if (lastActivities > Settings.traktLastActivities) {
                             AdvSettings.set('traktLastActivities', lastActivities);
                             Database.deleteWatched();
+                            ga('send', {
+                                hitType: 'event',
+                                eventCategory: 'Trakt',
+                                eventAction: 'Trakt Sync All',
+                                eventLabel: 'Trakt Sync All'
+                            });
                             App.Trakt.syncTrakt.all();
                         }
                     });
