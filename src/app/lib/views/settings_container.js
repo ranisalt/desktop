@@ -131,12 +131,10 @@
 
         resetMovieAPI: function() {
             var value = [{
-                url: 'http://yts.ph/',
+                url: 'http://yts.am/',
                 strictSSL: true
-            }, {
-                url: 'http://yify.is/index.php/',
-                strictSSL: true
-            }, {
+            },
+            {
                 url: 'https://yts.ag/',
                 strictSSL: true
             }];
@@ -259,7 +257,7 @@
                     if ($('option:selected', field).val() === 'Last Open') {
                         AdvSettings.set('lastTab', App.currentview);
                     }
-                    /* falls through */
+                /* falls through */
                 case 'watchedCovers':
                 case 'theme':
                     value = $('option:selected', field).val();
@@ -284,7 +282,7 @@
                 case 'bigPicture':
                 case 'analytics':
                     value = field.is(':checked');
-                    window['ga-disable-'+AdvSettings.get('gaCode')] = !value;
+                    window['ga-disable-' + AdvSettings.get('gaCode')] = !value;
                     break;
                 case 'activateTorrentCollection':
                 case 'activateAutoplay':

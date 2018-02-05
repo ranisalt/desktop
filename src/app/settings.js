@@ -113,32 +113,22 @@ Settings.opsUsername = '';
 Settings.opsPassword = '';
 
 Settings.tvAPI = [{
-    url: 'http://eztv.is/api/',
+    url: 'https://eztvapi.ml/',
     strictSSL: true
 }, {
     url: 'https://api-fetch.website/tv/',
     strictSSL: true
-}, {
-    url: 'https://eztvapi.ml/',
-    strictSSL: true
-}, {
-    url: 'https://popcorntime.ws/api/eztv/',
-    strictSSL: true
-}, {
-    url: 'https://popcorntimece.ch/api/eztv/',
-    strictSSL: true
-}];
+}
+];
 
 Settings.ytsAPI = [{
+    url: 'http://yts.am/',
+    strictSSL: true
+}, {
     url: 'http://yts.ag/',
     strictSSL: true
-}, {
-    url: 'http://yify.is/',
-    strictSSL: true
-}, {
-    url: 'http://yts.ph/',
-    strictSSL: true
-}];
+}
+];
 
 Settings.updateEndpoint = {
     url: 'http://popcorntime.ag/',
@@ -222,9 +212,9 @@ var AdvSettings = {
 
     set: function(variable, newValue) {
         Database.writeSetting({
-                key: variable,
-                value: newValue
-            })
+            key: variable,
+            value: newValue
+        })
             .then(function() {
                 Settings[variable] = newValue;
             });
