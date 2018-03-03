@@ -2,7 +2,8 @@
 if(typeof backdrop === "undefined"){ backdrop = ""; }; 
 if(typeof synopsis === "undefined"){ synopsis = "Synopsis not available."; }; 
 if(typeof runtime === "undefined"){ runtime = "N/A"; };
-for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
+if(typeof genre === "undefined"){ var genre = ['N/A'];  }
+else{for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); } };
 %>
 
     <div data-bgr="<%= backdrop %>" class="backdrop"></div>
