@@ -5158,6 +5158,12 @@ body,
     background-size: contain;
 }
 
+.about-container .content .icons_social a.github_icon {
+    background: url("../../images/icons/icon-github.png") no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
 .about-container .content .icons_social a.blog_icon {
     background: url("../../images/icons/icon-blog.png") no-repeat center;
     -webkit-background-size: contain;

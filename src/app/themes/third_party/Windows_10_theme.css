@@ -5159,7 +5159,7 @@ body,
 }
 
 .about-container .content .icons_social a.github_icon {
-    background: url("../images/icons/icon-github.png") no-repeat center;
+    background: url("../../images/icons/icon-github.png") no-repeat center;
     -webkit-background-size: contain;
     background-size: contain;
 }
