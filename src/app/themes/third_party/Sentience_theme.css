@@ -5158,6 +5158,12 @@ body,
     background-size: contain;
 }
 
+.about-container .content .icons_social a.github_icon {
+    background: url("../images/icons/icon-github.png") no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
 .about-container .content .icons_social a.blog_icon {
     background: url("../../images/icons/icon-blog.png") no-repeat center;
     -webkit-background-size: contain;
@@ -6040,7 +6046,7 @@ body,
 
 .file-selector-container .fakeskan:before {
     content: '\f071';
-    color: $WarningColor;
+    color: #a52a2a;
     font-family: "fontawesome";
     font-size: 16px;
     padding-right: 8px;
@@ -6168,10 +6174,17 @@ body,
 }
 
 .torrent-collection-container .content .onlinesearch .engine-selector div#strike-icon {
-    -webkit-filter: $PngLogo_BgColo1;
+    -webkit-filter: brightness(0.2);
     background: url("../../images/icons/getstrike.png");
     -webkit-background-size: contain;
     background-size: contain;
+}
+
+.torrent-collection-container .content .onlinesearch .engine-selector div#rarbg-icon {
+  -webkit-filter: brightness(1);
+  background: url("../../images/icons/rarbg.png");
+  -webkit-background-size: contain;
+  background-size: contain;
 }
 
 .torrent-collection-container .content .onlinesearch .engine-selector div.active {

@@ -24,12 +24,12 @@
         </div>
 
         <div class="icons_social">
-            <a href='http://popcorntime.ag/' data-toggle="tooltip" data-placement="top" title="popcorntime.ag" class='links site_icon'></span></a>
+            <a href='http://popcorn-time.is/' data-toggle="tooltip" data-placement="top" title="popcorn-time.is" class='links site_icon'></span></a>
 
-            <a href='http://twitter.com/PopcornTime_CE' data-toggle="tooltip" data-placement="top" title="twitter.com/PopcornTime_CE" class='links twitter_icon'></span></a>
-
+            <a href='https://twitter.com/popcorntimece' data-toggle="tooltip" data-placement="top" title="twitter.com/popcorntimece" class='links twitter_icon'></span></a>
+        <!--
 		<a href='http://facebook.com/PopcornTimeCE' data-toggle="tooltip" data-placement="top" title="facebook.com/PopcornTimeCE" class='links facebook_icon'></span></a>
-
+        -->
 		<a href='http://github.com/PopcornTimeCommunity' data-toggle="tooltip" data-placement="top" title="github.com/PopcornTime-CE" class='links github_icon'></span></a>
 
 		<a href='http://reddit.com/r/PopcornTimeCE' data-toggle="tooltip" data-placement="top" title="reddit.com/PopcornTimeCE" class='links forum_icon'></span></a>
