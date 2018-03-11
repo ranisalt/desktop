@@ -1,3 +1,19 @@
+## 0.4.1-15 Beta - Ides of March  - 11 March 2018
+
+BugFixes: 
+- Boommark and Seen button visual issue fixed for both Movie and TV Show
+- Fixed icon location in Themes for About screen
+- Fixed About and minor Theme issues
+- Remove tvApiServer copy from appearing incorrectly
+- Genre will default to 'N/A' when it can't be determined
+- Removed text referencing yts.ph
+- Streamer: Increased Buffer Stream
+- Webtorrent: Display torrent warning in the console
+
+Updated:
+- Updated various packages
+- Updated analytics calls
+
 ## 0.4.1-14 Beta - Lets start the New Year right... - 26 December 2017
 
 New Features: 
@@ -8,6 +24,7 @@ BugFixes:
 
 - Fixed build archive so that all files are included when a new build is generated.  All builds should now have all the proper files as expected and run properly.
 - Updated dependencies
+
 ## 0.4.1-11 Beta - Now with some butter - 6 December 2017
 
 New Features: 

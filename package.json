@@ -10,9 +10,9 @@
     },
     "license": "GPL-3.0",
     "main": "src/app/index.html",
-    "version": "0.4.1-14",
+    "version": "0.4.1-15",
     "node-remote": "*://*",
-    "releaseName": "Lets start the New Year right...",
+    "releaseName": "Ides of March",
     "scripts": {
         "start": "gulp run"
     },
