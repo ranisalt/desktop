@@ -188,7 +188,7 @@
             var searchvalue = this.ui.searchInput.val();
 
             ga('set', {
-                page: '/popcorntimece/search?s=' + encodeURI(searchvalue),
+                page: '/popcorntimece/search?s=' + encodeURI(searchvalue) + '&cat=' + encodeURI(App.currentview),
                 title: 'Search Results: ' + searchvalue
             });
 
