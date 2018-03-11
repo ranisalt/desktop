@@ -1,7 +1,7 @@
 ## 0.4.1-15 Beta - Ides of March  - 11 March 2018
 
 BugFixes: 
-- Boommark and Seen button visual issue fixed for both Movie and TV Show
+- Bookmark and Seen button visual issue fixed for both Movie and TV Show
 - Fixed icon location in Themes for About screen
 - Fixed About and minor Theme issues
 - Remove tvApiServer copy from appearing incorrectly
