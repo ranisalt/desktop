@@ -129,11 +129,15 @@
             // Bookmarked / not bookmarked
             if (this.model.get('bookmarked') === true) {
                 this.ui.bookmarkIcon.addClass('selected').text(i18n.__('Remove from bookmarks'));
+            }else{
+                this.ui.bookmarkIcon.text(i18n.__('Add to bookmarks'));
             }
 
             // Seen / Unseen
             if (this.model.get('watched') === true) {
                 this.ui.watchedIcon.addClass('selected').text(i18n.__('Seen'));
+            }else{
+                this.ui.watchedIcon.text(i18n.__('Not Seen'));
             }
             var _this = this;
             this.ui.watchedIcon.hover(function() {
