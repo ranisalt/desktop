@@ -68,9 +68,9 @@
         <div class="episode-info-description"></div>
         <div class="show-quality-container">
             <div class="quality-selector">
-                <div id="q480" class="q480">480p</div>
-                <div id="q720" class="q720">720p</div>
-                <div id="q1080" class="q1080">1080p</div>
+                <div id="q480" class="q480" data-on="click" data-event-category="TV Show" data-event-action="SelectQuality" data-event-label="480p">480p</div>
+                <div id="q720" class="q720" data-on="click" data-event-category="TV Show" data-event-action="SelectQuality" data-event-label="720p">720p</div>
+                <div id="q1080" class="q1080" data-on="click" data-event-category="TV Show" data-event-action="SelectQuality" data-event-label="1080p">1080p</div>
             </div>
         </div>
         <div class="movie-btn-watch-episode">
@@ -98,7 +98,7 @@
                     });
                     _.each(torrents, function(value, season) { %>
                         <li class="tab-season" data-tab="season-<%=season %>">
-                            <a>
+                            <a data-on="click" data-event-category="TV Show" data-event-action="Click - TV Show Season" data-event-label="<%= title %> - Season <%=season%>">
                                 <%= i18n.__("Season %s", season) %>
                             </a>
                         </li>
@@ -129,7 +129,7 @@
 
                             %>
                                 <li class="tab-episode" data-id="<%=episodeData.tvdb_id %>">
-                                    <a href="#" class="episodeData">
+                                    <a href="#" class="episodeData" data-on="click" data-event-category="TV Show" data-event-action="Click - TV Show Episode" data-event-label="<%= title %> - S<%=episodeData.season%>E<%=episodeData.episode%> - <%=episodeData.title %>">
                                         <span><%=episodeData.episode %></span>
                                         <div>
                                             <%=episodeData.title %>
@@ -165,10 +165,12 @@
 </div>
 <%
     if (App.settings.analytics) {
-        ga('set','page','/popcorntimece/show/detail/' + title);
+         ga('set', {
+                page: '/popcorntimece/show/detail/' + title,
+                title: title
+         });
         ga('send', {
-            'hitType': 'pageview',
-            'title': title
+            hitType: 'pageview'
         });
         win.debug("Analytics:TVShow Detail");
     }

@@ -5158,6 +5158,12 @@ body,
     background-size: contain;
 }
 
+.about-container .content .icons_social a.github_icon {
+    background: url("../images/icons/icon-github.png") no-repeat center;
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
 .about-container .content .icons_social a.blog_icon {
     background: url("../images/icons/icon-blog.png") no-repeat center;
     -webkit-background-size: contain;
@@ -6170,6 +6176,13 @@ body,
 .torrent-collection-container .content .onlinesearch .engine-selector div#strike-icon {
     -webkit-filter: brightness(1);
     background: url("../images/icons/getstrike.png");
+    -webkit-background-size: contain;
+    background-size: contain;
+}
+
+.torrent-collection-container .content .onlinesearch .engine-selector div#rarbg-icon {
+    -webkit-filter: brightness(1);
+    background: url("../images/icons/rarbg.png");
     -webkit-background-size: contain;
     background-size: contain;
 }
@@ -7572,13 +7585,6 @@ body,
 #notification .notification p {
     font-weight: 100;
     line-height: 20px;
-}
-
-.torrent-collection-container .content .onlinesearch .engine-selector div#rarbg-icon {
-    -webkit-filter: brightness(1);
-    background: url("../images/icons/rarbg.png");
-    -webkit-background-size: contain;
-    background-size: contain;
 }
 
 disclaimer-container .disclaimer .disclaimer-state .disclaimer-content .register-text {

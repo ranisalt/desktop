@@ -1,6 +1,7 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+    // Defines space handling after function keyword for anonymous functions
+    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
     "eslint.enable": false,
     "jshint.enable": false
 }

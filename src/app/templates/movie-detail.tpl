@@ -2,7 +2,8 @@
 if(typeof backdrop === "undefined"){ backdrop = ""; }; 
 if(typeof synopsis === "undefined"){ synopsis = "Synopsis not available."; }; 
 if(typeof runtime === "undefined"){ runtime = "N/A"; };
-for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
+if(typeof genre === "undefined"){ var genre = ['N/A'];  }
+else{for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); } };
 %>
 
     <div data-bgr="<%= backdrop %>" class="backdrop"></div>
@@ -80,7 +81,7 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
             <div class="flag-container">
                 <div class="sub-flag-icon flag none" data-lang="none" title="<%= i18n.__(" Disabled ") %>"></div>
                 <% for(var lang in subtitle){ %>
-                    <div class="sub-flag-icon flag <%= lang %>" data-lang="<%= lang %>" title="<%= App.Localization.langcodes[lang].nativeName %>"></div>
+                    <div class="sub-flag-icon flag <%= lang %>" data-lang="<%= lang %>" title="<%= App.Localization.langcodes[lang].nativeName %>" data-on="click" data-event-category="Movie" data-event-action="SelectSubtitles" data-event-label="<%= App.Localization.langcodes[lang].nativeName %>"></div>
                     <% } %>
             </div>
 
@@ -88,7 +89,7 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
 
             <div class="button dropup" id="player-chooser"></div>
 
-            <div id="watch-trailer" class="button" data-on="click" data-event-category="Movie" data-event-action="Watch Trailer" data-event-label="<%= title %>">
+            <div id="watch-trailer" class="button" data-on="click" data-event-category="Movie" data-event-action="Watch Trailer" data-event-label="<%= title %> Trailer">
                 <%=i18n.__("Watch Trailer") %>
             </div>
 
@@ -116,10 +117,13 @@ for(var i = 0; i < genre.length; i++){ genre[i] = i18n.__(genre[i]); };
 
     <%
         if (Settings.analytics) {
-            ga('set','page','/popcorntimece/movie/detail/' + title);
+            ga('set', {
+                    page: '/popcorntimece/movie/detail/' + title,
+                    title: title
+                });
+
             ga('send', {
-                'hitType': 'pageview',
-                'title': title
+                hitType: 'pageview'
             });
             win.debug("Analytics:Movie Detail");
         }

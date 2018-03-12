@@ -129,11 +129,15 @@
             // Bookmarked / not bookmarked
             if (this.model.get('bookmarked') === true) {
                 this.ui.bookmarkIcon.addClass('selected').text(i18n.__('Remove from bookmarks'));
+            }else{
+                this.ui.bookmarkIcon.text(i18n.__('Add to bookmarks'));
             }
 
             // Seen / Unseen
             if (this.model.get('watched') === true) {
                 this.ui.watchedIcon.addClass('selected').text(i18n.__('Seen'));
+            }else{
+                this.ui.watchedIcon.text(i18n.__('Not Seen'));
             }
             var _this = this;
             this.ui.watchedIcon.hover(function() {
@@ -232,6 +236,14 @@
         },
 
         startStreaming: function() {
+            //GA: Player Launched
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Movie',
+                eventAction: 'WatchPlayer',
+                eventLabel: App.Device.Collection.selected.get('type') + " - " + App.Device.Collection.selected.get('name')
+            });
+
             var player = $('.imgplayerchoice').attr('src');
             if (!player.match(/[0-9]+.[0-9]+.[0-9]+.[0-9]/ig) &&
                 player == 'images/icons/googlecloud-icon.png' && this.model.get('google_video')) {
@@ -321,6 +333,14 @@
                 win.debug('HD Enabled', this.model.get('quality'));
                 AdvSettings.set('movies_default_quality', '1080p');
             }
+
+            //GA: Player Launched
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Movie',
+                eventAction: 'SelectQuality',
+                eventLabel: "1080p"
+            });
         },
 
         disableHD: function() {
@@ -332,6 +352,13 @@
                 win.debug('HD Disabled', this.model.get('quality'));
                 AdvSettings.set('movies_default_quality', '720p');
             }
+            //GA: Player Launched
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Movie',
+                eventAction: 'SelectQuality',
+                eventLabel: "720p"
+            });
         },
 
         renderHealth: function() {
@@ -344,8 +371,8 @@
                 .tooltip('fixTitle');
 
             $('.health-icon').tooltip({
-                    html: true
-                })
+                html: true
+            })
                 .removeClass('Bad Medium Good Excellent')
                 .addClass(health)
                 .attr('data-original-title', i18n.__('Health ' + health) + ' - ' + i18n.__('Ratio:') + ' ' + ratio.toFixed(2) + ' <br> ' + i18n.__('Seeds') + ': ' + torrent.seed + ' - ' + i18n.__('Peers') + ': ' + torrent.peer)

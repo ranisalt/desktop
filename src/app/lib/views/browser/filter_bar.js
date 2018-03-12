@@ -186,6 +186,16 @@
             App.vent.trigger('movie:closeDetail');
             e.preventDefault();
             var searchvalue = this.ui.searchInput.val();
+
+            ga('set', {
+                page: '/popcorntimece/search?s=' + encodeURI(searchvalue) + '&cat=' + encodeURI(App.currentview),
+                title: 'Search Results: ' + searchvalue
+            });
+
+            ga('send', {
+                hitType: 'pageview'
+            });
+
             this.model.set({
                 keywords: this.ui.searchInput.val(),
                 genre: ''
@@ -303,7 +313,7 @@
             }
         },
 
-		showPlugins: function (e) {
+        showPlugins: function (e) {
             App.vent.trigger('plugins:show');
         },
 

@@ -6,8 +6,7 @@
 <ul class="dropdown-menu playerchoicemenu" role="menu">
   <% _.each(items, function(item){ %>
     <li id ="player-<%= item.id %>">
-      <a href="#"> <%= item.name %>
-        <img class="playerchoiceicon" src="images/icons/<%= item.type %>-icon.png"/>
+      <a href="#" data-on="click" data-event-category="Player" data-event-action="SelectPlayer" data-event-label="<%= item.type %> - <%= item.name %>"><%= item.name %><img class="playerchoiceicon" src="images/icons/<%= item.type %>-icon.png"/>
     </a>
     </li>
   <% }); %>

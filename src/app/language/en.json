@@ -504,7 +504,7 @@
 	"Peers:": "Peers:",
 	"Torrents-Time v2": "Torrents-Time v2",
 	"Torrents Time v2": "Torrents Time v2",
-	"YTS.ph Search": "YTS.ph Search",
+	"Movie Search": "Movie Search",
 	"This feature has a built-in kat.cr search, which allows you to stream any movies, series or anime torrents with automatic subtitle support. The casting option integrates features including Chromecast, Airplay and DLNA. This library also provides an Anti-Virus Scanner and a 'History' feature, that keeps track of all your downloaded KAT torrents": "This feature has a built-in kat.cr search, which allows you to stream any movies, series or anime torrents with automatic subtitle support. The casting option integrates features including Chromecast, Airplay and DLNA. This library also provides an Anti-Virus Scanner and a 'History' feature, that keeps track of all your downloaded KAT torrents",
 	"Plugins": "Plugins",
 	" Adventure": " Adventure",
@@ -526,6 +526,11 @@
 	" Musical": " Musical",
 	" Romance": " Romance",
 	" Horror": " Horror",
-	"comedy": "comedy",
-	"reality": "reality"
+	" Comedy": " Comedy",
+	" Reality": " Reality",
+	" Documentary": " Documentary",
+	" Action": " Action",
+	"comedy": " Comedy",
+	"western": " Western",
+	"YTS.ph Search": "YTS.ph Search"
 }

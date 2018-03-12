@@ -207,11 +207,15 @@
                     //Initialize Google Analytics
                     if (App.settings.analytics) {
                         // Sets the page value on the tracker.
-                        ga('set', 'page', '/popcorntimece/');
+                        ga('set', {
+                            page: '/popcorntimece/'
+                        });
                         //Set AppVersion
                         ga('set', 'appName', App.Config.title);
                         ga('set', 'appVersion', AdvSettings.get('version'));
-                        ga('send', 'screenview', {screenName: App.Config.title});
+                        ga('send', 'screenview', {
+                            screenName: App.Config.title
+                        });
                     }
 
                     that.InitModal.destroy();
@@ -266,10 +270,12 @@
             this.MovieDetail.destroy();
 
             if (App.settings.analytics) {
-                ga('set','page','/popcorntimece/movie/');
+                ga('set', {
+                    page: '/popcorntimece/movie/',
+                    title: 'Movie List'
+                });
                 ga('send', {
-                    'hitType': 'pageview',
-                    'title': 'Movie List'
+                    hitType: 'pageview'
                 });
                 win.debug("Analytics:Movie List");
             }
@@ -281,10 +287,12 @@
             this.MovieDetail.destroy();
 
             if (App.settings.analytics) {
-                ga('set','page','/popcorntimece/show/');
+                ga('set', {
+                    page: '/popcorntimece/show/',
+                    title: 'TV Show List'
+                });
                 ga('send', {
-                    'hitType': 'pageview',
-                    'title': 'TV Show List'
+                    hitType: 'pageview'
                 });
                 win.debug("Analytics:TVShow List");
             }
@@ -294,7 +302,13 @@
         showAnime: function(e) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
-
+            ga('set', {
+                page: '/popcorntimece/anime/',
+                title: 'Anime List'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Content.show(new App.View.AnimeBrowser());
         },
 
@@ -338,7 +352,13 @@
         showFavorites: function(e) {
             this.Settings.destroy();
             this.MovieDetail.destroy();
-
+            ga('set', {
+                page: '/popcorntimece/favorites/',
+                title: 'Favorites'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Content.show(new App.View.FavoriteBrowser());
         },
 
@@ -366,25 +386,68 @@
                 }
             }
             waitForSync();
+
+            ga('set', {
+                page: '/popcorntimece/watchlist/',
+                title: 'Watchlist'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
         },
 
         showDisclaimer: function(e) {
+            ga('set', {
+                page: '/popcorntimece/disclaimer/',
+                title: 'Disclaimer'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Disclaimer.show(new App.View.DisclaimerModal());
         },
 
         showRegister: function(e) {
+            ga('set', {
+                page: '/popcorntimece/register/',
+                title: 'Register'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Register.show(new App.View.RegisterModal());
         },
 
         showAbout: function(e) {
+            ga('set', {
+                page: '/popcorntimece/about/',
+                title: 'About'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.About.show(new App.View.About());
         },
 
         showTorrentCollection: function(e) {
+            ga('set', {
+                page: '/popcorntimece/torrentcollection/',
+                title: 'Torrent Collection'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.TorrentCollection.show(new App.View.TorrentCollection());
         },
 
         showPlugins: function(e) {
+            ga('set', {
+                page: '/popcorntimece/plugins/',
+                title: 'Plugins'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Plugins.show(new App.View.Plugins());
         },
 
@@ -401,6 +464,13 @@
         },
 
         showHelp: function(e) {
+            ga('set', {
+                page: '/popcorntimece/help/',
+                title: 'Help'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Help.show(new App.View.Help());
         },
 
@@ -462,6 +532,13 @@
         },
 
         showSettings: function(settingsModel) {
+            ga('set', {
+                page: '/popcorntimece/settings/',
+                title: 'Settings'
+            });
+            ga('send', {
+                hitType: 'pageview'
+            });
             this.Settings.show(new App.View.Settings({
                 model: settingsModel
             }));
@@ -469,6 +546,13 @@
 
         traktAuthenticated: function() {
             win.info('Trakt: authenticated');
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'Trakt',
+                eventAction: 'Trakt Authenticated',
+                eventLabel: 'Trakt Authenticated'
+            });
+
             if (Settings.traktSyncOnStart && (Settings.traktLastSync + 1800000 < new Date().valueOf())) { //only refresh every 30min
                 App.Trakt.sync.lastActivities()
                     .then(function(activities) { // check if new activities
@@ -476,6 +560,12 @@
                         if (lastActivities > Settings.traktLastActivities) {
                             AdvSettings.set('traktLastActivities', lastActivities);
                             Database.deleteWatched();
+                            ga('send', {
+                                hitType: 'event',
+                                eventCategory: 'Trakt',
+                                eventAction: 'Trakt Sync All',
+                                eventLabel: 'Trakt Sync All'
+                            });
                             App.Trakt.syncTrakt.all();
                         }
                     });

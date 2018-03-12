@@ -26,6 +26,7 @@ Settings.postersJump = [134, 154, 174, 194, 214, 234, 254, 274, 294];
 Settings.alwaysFullscreen = false;
 Settings.playNextEpisodeAuto = true;
 Settings.chosenPlayer = 'local';
+Settings.bufferSize = 10 * 1024 * 1024;
 
 // Advanced UI
 Settings.alwaysOnTop = false;
@@ -112,32 +113,22 @@ Settings.opsUsername = '';
 Settings.opsPassword = '';
 
 Settings.tvAPI = [{
-    url: 'http://eztv.is/api/',
+    url: 'https://eztvapi.ml/',
     strictSSL: true
 }, {
     url: 'https://api-fetch.website/tv/',
     strictSSL: true
-}, {
-    url: 'https://eztvapi.ml/',
-    strictSSL: true
-}, {
-    url: 'https://popcorntime.ws/api/eztv/',
-    strictSSL: true
-}, {
-    url: 'https://popcorntimece.ch/api/eztv/',
-    strictSSL: true
-}];
+}
+];
 
 Settings.ytsAPI = [{
+    url: 'http://yts.am/',
+    strictSSL: true
+}, {
     url: 'http://yts.ag/',
     strictSSL: true
-}, {
-    url: 'http://yify.is/',
-    strictSSL: true
-}, {
-    url: 'http://yts.ph/',
-    strictSSL: true
-}];
+}
+];
 
 Settings.updateEndpoint = {
     url: 'http://popcorntime.ag/',
@@ -163,7 +154,9 @@ Settings.trackers = [
     'udp://open.demonii.com:1337/announce',
     'udp://tracker.opentrackr.org:1337/announce',
     'udp://torrent.gresille.org:80/announce',
-    'udp://public.popcorn-tracker.org:6969/announce'
+    'udp://public.popcorn-tracker.org:6969/announce',
+    'udp://9.rarbg.com:2710/announce',
+    'udp://p4p.arenabg.com:1337'
 ];
 
 // App Settings
@@ -219,9 +212,9 @@ var AdvSettings = {
 
     set: function(variable, newValue) {
         Database.writeSetting({
-                key: variable,
-                value: newValue
-            })
+            key: variable,
+            value: newValue
+        })
             .then(function() {
                 Settings[variable] = newValue;
             });

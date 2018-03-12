@@ -15,7 +15,8 @@
             q1080p: '#q1080',
             q720p: '#q720',
             q480p: '#q480',
-            bookmarkIcon: '.favourites-toggle'
+            bookmarkIcon: '.favourites-toggle',
+            watchedIcon: '.show-watched-toggle'
         },
 
         events: {
@@ -165,7 +166,7 @@
             if (bookmarked) {
                 this.ui.bookmarkIcon.addClass('selected').text(i18n.__('Remove from bookmarks'));
             } else {
-                this.ui.bookmarkIcon.removeClass('selected');
+                this.ui.bookmarkIcon.removeClass('selected').text(i18n.__('Add to bookmarks'));
             }
 
             $('.star-container-tv,.show-imdb-link,.show-magnet-link').tooltip();
@@ -386,7 +387,7 @@
                 Database.checkEpisodeWatched(value)
                     .then(function (watched) {
                         if (!watched) {
-                            $('.show-watched-toggle').show();
+                            $('.show-watched-toggle').text(i18n.__("Mark as Seen")).show();
                         }
                     });
             });
@@ -412,7 +413,7 @@
                     .then(function (watched) {
                         if (!watched) {
                             App.vent.trigger('show:watched', value, 'seen');
-                            $('.show-watched-toggle').hide();
+                            $('.show-watched-toggle').addClass('selected').text(i18n.__("Mark as unseen")).hide();
                         }
                     });
             });
@@ -458,11 +459,18 @@
                 episode: episode
             };
 
-
             var episodes = [];
             var episodes_data = [];
             var selected_quality = $(e.currentTarget).attr('data-quality');
             var auto_play = false;
+
+            //GA: Player Launched
+            ga('send', {
+                hitType: 'event',
+                eventCategory: 'TV Show',
+                eventAction: 'WatchPlayer',
+                eventLabel: App.Device.Collection.selected.get('type')+" - "+App.Device.Collection.selected.get('name')
+            });
 
             if (AdvSettings.get('playNextEpisodeAuto') && this.model.get('imdb_id').indexOf('mal') === -1) {
                 _.each(this.model.get('episodes'), function (value) {
@@ -645,7 +653,7 @@
                 torrents.quality = '480p';
                 this.ui.q480p.addClass('active');
             }
-
+            
 
             $('.tab-episode.active').removeClass('active');
             $elem.addClass('active');

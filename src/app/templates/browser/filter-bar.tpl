@@ -1,7 +1,7 @@
 <ul class="nav nav-hor left">
-    <li class="source active showMovies providerinfo" data-toggle="tooltip" data-placement="top" title="YTS.ph"><%= i18n.__("Movies") %></li>
-    <li class="source showShows providerinfo" data-toggle="tooltip" data-placement="top" id="TVApi" title="TV API - None"><%= i18n.__("TV Series") %></li>
-        <li class="source showAnime providerinfo" data-toggle="tooltip" data-placement="top" title="Haruhichan"><%= i18n.__("Anime") %></li>
+    <li class="source active showMovies providerinfo" data-toggle="tooltip" data-placement="top" title=""><%= i18n.__("Movies") %></li>
+    <li class="source showShows providerinfo" data-toggle="tooltip" data-placement="top" id="TVApi" title=""><%= i18n.__("TV Series") %></li>
+    <li class="source showAnime providerinfo" data-toggle="tooltip" data-placement="top" title=""><%= i18n.__("Anime") %></li>
 </ul>
 <ul id="nav-filters" class="nav nav-hor filters">
     <% if(typeof type !== 'undefined'){ %>
@@ -13,7 +13,7 @@
             </a>
             <ul class="dropdown-menu">
                 <% _.each(types, function(c) { %>
-                    <li><a href="#" data-value="<%= c %>"><%= i18n.__(c) %></a></li>
+                    <li><a href="#" data-value="<%= c %>" data-on="click" data-event-category="Type" data-event-action="SelectType" data-event-label="<%= c %>"><%= i18n.__(c) %></a></li>
                 <% }); %>
             </ul>
         </li>
@@ -27,7 +27,7 @@
             </a>
             <ul class="dropdown-menu">
                 <% _.each(genres, function(c) { %>
-                    <li><a href="#" data-value="<%= c %>"><%= i18n.__(c.capitalizeEach()) %></a></li>
+                    <li><a href="#" data-value="<%= c %>" data-on="click" data-event-category="Genre" data-event-action="SelectGenre" data-event-label="<%= c %>"><%= i18n.__(c.capitalizeEach()) %></a></li>
                 <% }); %>
             </ul>
         </li>
@@ -40,7 +40,7 @@
             </a>
             <ul class="dropdown-menu">
                 <% _.each(sorters, function(c) { %>
-                    <li><a href="#" data-value="<%= c %>"><%= i18n.__(c.capitalizeEach()) %></a></li>
+                    <li><a href="#" data-value="<%= c %>" data-on="click" data-event-category="Sort" data-event-action="SelectSort" data-event-label="<%= c %>"><%= i18n.__(c.capitalizeEach()) %></a></li>
                 <% }); %>
             </ul>
         </li>
@@ -50,7 +50,7 @@
     <li>
         <div class="right search">
             <form>
-                <input id="searchbox" type="text" placeholder="<%= i18n.__("YTS.ph Search") %>">
+                <input id="searchbox" type="text" placeholder="<%= i18n.__("Movie Search") %>">
                 <div class="clear fa fa-times"></div>
             </form>
         </div>
