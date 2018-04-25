@@ -54,7 +54,7 @@
         "opensubtitles-ce": "^1.0.0",
         "opensubtitles-api": "4.0.0",
         "os-name": "^2.0.1",
-        "peerflix": "^0.37.0",
+        "peerflix": "^0.38.0",
         "q": "2.0.3",
         "read-torrent": "1.3.0",
         "readdirp": "^2.1.0",
