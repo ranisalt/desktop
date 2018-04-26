@@ -70,7 +70,7 @@
         "underscore": "^1.8.3",
         "upnp-mediarenderer-client": "^1.2.1",
         "webtorrent": "^0.98.19",
-        "xmlbuilder": "^9.0.4"
+        "xmlbuilder": "^10.0.0"
     },
     "devDependencies": {
         "del": "^3.0.0",
